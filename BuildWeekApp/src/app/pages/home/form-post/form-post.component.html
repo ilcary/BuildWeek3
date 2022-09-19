@@ -1,0 +1,8 @@
+
+
+<form >
+  <input nz-input placeholder="Titile" name="title" [(ngModel)]="currentPost.title" />
+  <textarea nz-input placeholder="What'is going on?" name="content" [(ngModel)]="currentPost.content" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+  <button nz-button nzType="primary" *ngIf=" formAction == 'create'"  (click)="sendPost()">Share it!</button>
+  <button nz-button nzType="primary" *ngIf=" formAction == 'edit'" (click)="editPost()">Edit!</button>
+</form>
