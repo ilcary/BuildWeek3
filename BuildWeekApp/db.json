@@ -1,19 +1,50 @@
 {
+  "users": [
+    {
+      "email": "carisio@gmail.com",
+      "password": "$2a$10$wByhdBgNgCD0ZNrXz1RgGeoeiUdyY7a7mlx.yBbUF1/vaEG54jzue",
+      "name": "ilCary",
+      "id": 1
+    },
+    {
+      "email": "dds@gmail.com",
+      "password": "$2a$10$6yFNf6iou6NA0I.zExD/Qe3eGTOPtfsvCbkT9CRZfQRqWfX7GjIum",
+      "name": "SirDDS",
+      "id": 2
+    },
+    {
+      "email": "popi@gmail.com",
+      "password": "$2a$10$jOV/HsdHbHh7sp2lfdSdturJkN9dA5VgPNYNIzAff9E0xtuZbj7C.",
+      "name": "popi",
+      "id": 3
+    }
+  ],
   "posts": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "title": "Nesciunt omnis sunt",
+      "content": "Rerum veniam eum de",
+      "dateOfPublish": "2022-09-19T15:13:44.961Z",
+      "likes": [
+        {
+          "postId": 1,
+          "userId": 1
+        }
+      ],
+      "userId": 1,
+      "id": 1
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "Aperiam sed molestia",
+      "content": "Quae repellendus Vo",
+      "dateOfPublish": "2022-09-19T15:13:49.631Z",
+      "likes": [
+        {
+          "postId": 2,
+          "userId": 1
+        }
+      ],
+      "userId": 1,
+      "id": 2
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

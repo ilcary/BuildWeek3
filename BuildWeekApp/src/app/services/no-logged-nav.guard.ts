@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserAuthService } from './user-auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoLoggedNavGuard implements CanActivate, CanDeactivate<unknown> {
+
+  constructor(private auth: UserAuthService){ }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    return this.auth.isUserLogged();
   }
   canDeactivate(
     component: unknown,
@@ -18,5 +22,5 @@ export class NoLoggedNavGuard implements CanActivate, CanDeactivate<unknown> {
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }
-  
+
 }
