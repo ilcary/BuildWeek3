@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { like } from 'src/app/models/Ilike';
+import { Router } from '@angular/router';
+import { BehaviorSubject, from } from 'rxjs';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
 import { PostService } from 'src/app/services/post.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-home',
@@ -16,15 +19,21 @@ export class HomeComponent implements OnInit {
   currentPost: Post = new Post('', '');
   currentUser!: User | null
   formAction: string = 'create'
+  searchword!: string
+  userList:User[]=[]
+  strArrUsers: string[] = []
 
 
   apiUrl: string = 'http://localhost:3000/posts'
 
-  constructor(private postSvc: PostService, private authSvc: UserAuthService) { }
+  constructor(private postSvc: PostService, private authSvc: UserAuthService, private userSvc : UserService, private router:Router) { }
 
   posts: Post[] = [];
 
   ngOnInit(): void {
+    this.userSvc.getAllUsers().subscribe(res=>{
+      this.userList = res
+    })
     this.currentUser = this.authSvc.getLoggedUser()
     console.log(this.currentUser);
 
@@ -71,7 +80,7 @@ export class HomeComponent implements OnInit {
   editPost(post: Post) {
     console.log(post);
     this.postSvc.editPost(post).subscribe(res => {
-      let index = this.posts.findIndex((todo: Post) => todo.id == res.id)
+      let index = this.posts.findIndex((post: Post) => post.id == res.id)
       this.posts.splice(index, 1, post)
       Swal.fire({
         position: 'top-end',
@@ -83,46 +92,25 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  addToEdit(todo: Post): void {
-    todo = Object.assign({}, todo)
-    this.currentPost = todo
+  addToEdit(post: Post): void {
+    post = Object.assign({}, post)
+    this.currentPost = post
     this.formAction = 'edit'
   }
 
-  addLike(post:Post){
-    if(post.id && this.currentUser?.id){
-      let heart:like = new like (post.id,this.currentUser.id)
-      this.postSvc.getPostById(post.id).subscribe(res =>{
-       let allLike:like[] = res.likes
-        let match = allLike.filter(e => e == heart)
-        console.log(heart);
-        console.log(match);
-        console.log(allLike);
+  addLike(post: Post) {
+    if (post.id && this.currentUser?.id) {
+      let heart: number = this.currentUser.id
+      if (post.likes.includes(heart)) {
+        post.likes = post.likes.filter(n => n != heart)
+        this.postSvc.editPost(post).subscribe(() =>{})
+      } else {
+        post.likes.push(heart)
+        this.postSvc.editPost(post).subscribe(() =>{})
+      }
+    }
+  }
 
-        if(match.length !== 0 || allLike.length == 0){
-          post.likes.push(heart)
-          this.postSvc.editPost(post).subscribe(res => {
-          let index = this.posts.findIndex((post: Post) => post.id == res.id)
-          this.posts.splice(index, 1, post)
-        })
-      }else{
-            console.log(post.likes);
-console.log();
-
-             let index = post.likes.indexOf(heart)
-             console.log(heart);
-             console.log(index);
-
-             post.likes.slice(index,1)
-             this.postSvc.editPost(post).subscribe(res => {
-             let index = this.posts.findIndex((post: Post) => post.id == res.id)
-             this.posts.splice(index, 1, post)
-              })
-            }
-
-     }
- ) }
-}
 
   allLikes(post:Post):number{
     let i = 0
@@ -131,5 +119,19 @@ console.log();
     }
     return i
   }
+
+  select(id:number|undefined){
+    if(id){
+      this.router.navigate(['/users/' + id])
+    }
+  }
+
+
+  listOfSelectedValue: string[] = [];
+
+  isNotSelected(value: string): boolean {
+    return this.listOfSelectedValue.indexOf(value) === -1;
+  }
+
 
 }
