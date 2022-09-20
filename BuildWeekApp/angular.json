@@ -25,6 +25,7 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
+
               "src/assets",
               {
                 "glob": "**/*",
@@ -34,7 +35,9 @@
             ],
             "styles": [
               "src/theme.less",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/sweetalert2/src/sweetalert2.scss"
+
             ],
             "scripts": []
           },
@@ -112,5 +115,6 @@
   },
   "cli": {
     "analytics": "6553ffce-3218-44f5-8c0c-127593202ca7"
+
   }
 }

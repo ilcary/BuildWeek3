@@ -1,1 +1,37 @@
-<p>home works!</p>
+<nz-header>
+  <nz-select  nzPlaceHolder="Inserted are removed" [(ngModel)]="listOfSelectedValue">
+    <nz-option
+      *ngFor="let option of userList"
+      (click)="select(option.id)"
+      [nzLabel]="option.name"
+      [nzValue]="option.name"
+    ></nz-option>
+  </nz-select>
+</nz-header>
+
+<!-- post -->
+<!-- post -->
+
+<app-form-post *ngIf="currentUser"
+ (onNewPostCreated)="addPost($event)" (onEditPost)="editPost($event)"
+ [currentPost]="currentPost"
+ [formAction]="formAction">
+</app-form-post>
+
+<div *ngFor="let post of posts" >
+<nz-card style="width:300px;"  [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+  <nz-card-meta
+    nzTitle={{post.title}}
+    nzDescription={{post.content}}
+  ></nz-card-meta>
+</nz-card>
+<ng-template   #actionSetting>
+  <span (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="delete"></span>
+</ng-template>
+<ng-template  #actionEdit>
+  <span (click)="addToEdit(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></span>
+</ng-template>
+<ng-template  #actionEllipsis>
+  <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
+</ng-template>
+</div>

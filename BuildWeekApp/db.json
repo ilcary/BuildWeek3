@@ -1,19 +1,61 @@
 {
+  "users": [
+    {
+      "email": "francy@gmail.com",
+      "password": "$2a$10$M9NBCfN6JdjpNvvqTs1W4O9usuGcvJuCklBJTTfbtNb1xGkAKU2MO",
+      "name": "Francy",
+      "btd": "1625-05-02",
+      "id": 4
+    },
+    {
+      "email": "florin@gmail.com",
+      "password": null,
+      "name": "florin",
+      "btd": "4255-05-21",
+      "id": 5
+    },
+    {
+      "email": "Laborum@gmail.com",
+      "password": "$2a$10$wMCEd0RupbmKjcHBv7CcYOrUiea/H4qJXwUaIkdEhHPA.pQbNKsAK",
+      "name": "Eos quod architecto ",
+      "btd": "2012-07-02",
+      "id": 6
+    },
+    {
+      "email": "Numquam@gmail.com",
+      "password": "$2a$10$wEVri2muWse.URCeRnKuNOsnBrlGdy9xu25fnHuEiBgV3ANxv7TL2",
+      "name": "Dicta repellendus A",
+      "btd": "1999-01-24",
+      "id": 7
+    },
+    {
+      "email": "carisio1234@gmail.com",
+      "password": null,
+      "name": "ilCary",
+      "btd": "2001-09-30",
+      "id": 8,
+      "dtb": "2001-09-30"
+    }
+  ],
   "posts": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "title": "Minima at illum max",
+      "content": "Laboris explicabo V",
+      "dateOfPublish": "2022-09-20T09:22:46.886Z",
+      "likes": [
+        4,
+        8
+      ],
+      "userId": 4,
+      "id": 1
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "Id ipsum qui blandi",
+      "content": "Quidem blanditiis do",
+      "dateOfPublish": "2022-09-20T10:52:23.632Z",
+      "likes": [],
+      "userId": 5,
+      "id": 2
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

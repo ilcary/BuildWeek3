@@ -1,0 +1,108 @@
+<div id="bg" >
+ <div id="avatar" >
+  <h1>{{currentUser.name}}</h1>
+</div>
+</div>
+
+
+
+<div class="contenthead">
+   <h4>{{currentUser.email}}</h4>
+
+  </div>
+<div *ngIf="owner" class="refs">
+
+
+
+  <button nz-button (click)="deleteUser()" nzType="dashed">Delete profile</button>
+  <button nz-button [nzType]="'primary'" (click)="editUser()"><span>Edit profile</span></button>
+</div>
+
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()"
+  >
+    <ng-template #modalTitle>Edit personal info</ng-template>
+
+    <ng-template #modalContent>
+      <form nz-form [formGroup]="form" class="login-form" (submit)="saveProfileData()">
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your username!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="name" required placeholder="Username" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your date of birth!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="date" nz-input formControlName="btd" required placeholder="Date of birth" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your email!">
+            <nz-input-group nzPrefixIcon="mail">
+              <input type="text" nz-input formControlName="email" required placeholder="Mail" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" required placeholder="Password" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [disabled]="!form.valid" >Save!</button>
+      </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+      <span>Modal Footer:</span>
+      <button nz-button nzType="default" (click)="handleCancel()">back</button>
+    </ng-template>
+  </nz-modal>
+
+  <div  *ngIf="owner" class="formForPost">
+
+  <h2  >Create a new post!</h2>
+
+  <form >
+    <input nz-input placeholder="Titile" name="title" [(ngModel)]="currentPost.title" />
+    <textarea nz-input placeholder="What'is going on?" name="content" [(ngModel)]="currentPost.content" [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+    <button nz-button nzType="primary" *ngIf=" formAction == 'create'"  (click)="addPost(currentPost)">Share it!</button>
+    <button nz-button nzType="primary" *ngIf=" formAction == 'edit'" (click)="editPost(currentPost)">Edit!</button>
+  </form>
+
+</div>
+
+
+<h2 [textContent]="owner? 'My Post:': 'Post:' " ></h2>
+
+
+
+<div *ngFor="let post of posts" >
+  <nz-card style="width:300px;"  [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+    <nz-card-meta
+      nzTitle={{post.title}}
+      nzDescription={{post.content}}
+    ></nz-card-meta>
+  </nz-card>
+  <ng-template   #actionSetting>
+    <span (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="delete"></span>
+  </ng-template>
+  <ng-template  #actionEdit>
+    <span (click)="addToEdit(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></span>
+  </ng-template>
+  <ng-template  #actionEllipsis>
+    <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
+  </ng-template>
+  </div>
