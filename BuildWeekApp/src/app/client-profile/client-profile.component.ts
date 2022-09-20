@@ -23,37 +23,44 @@ export class ClientProfileComponent implements OnInit {
   currentPost: Post = new Post('', '');
   formAction: string = 'create'
   paramsId!: number
-  owner!:boolean
-  allUsers:User[] = [];
-  loggedUser!:User
+  owner!: boolean
+  allUsers: User[] = [];
+  loggedUser!: User
+
+  errorDate: Date = new Date();
+  errorUser: User = new User('', '', this.errorDate, '');
 
   constructor(
     private userSrv: UserService,
     private auth: UserAuthService,
     private router: Router,
-    private postSvc:PostService,
+    private postSvc: PostService,
     private activeRouter: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+
     this.loggedUser = this.auth.getLoggedUser()
+
     this.paramsId = Number(this.activeRouter.snapshot.paramMap.get('id'))
-    this.userSrv.getAllUsers().subscribe(r=>this.allUsers=r)
-    this.currentUser = this.auth.getLoggedUser()
+    this.userSrv.getAllUsers().subscribe(r => this.allUsers = r)
+
     this.checkOwner()
-    this.postSvc.getAllPosts().subscribe(
-      {
-        next: res => {
-          this.posts = res;
-        },
-        error: error => console.log(error)
-      }
-    )
+    
+    this.userSrv.getUserById(String(this.paramsId)).subscribe({
+      next: res => this.currentUser = res,
+      error: () => this.currentUser = this.errorUser
+    })
+
+    this.postSvc.getAllPosts().subscribe({
+      next: res => this.posts = res.filter(post => post.userId == this.paramsId),
+      error: error => console.log(error)
+    })
+
   }
 
-
-  checkOwner(){
-    this.paramsId == this.currentUser.id ? this.owner=true : this.owner=false
+  checkOwner() {
+    this.paramsId == this.loggedUser.id ? this.owner = true : this.owner = false
   }
 
   editUser() {
@@ -193,18 +200,18 @@ export class ClientProfileComponent implements OnInit {
       let heart: number = this.currentUser.id
       if (post.likes.includes(heart)) {
         post.likes = post.likes.filter(n => n != heart)
-        this.postSvc.editPost(post).subscribe(() =>{})
+        this.postSvc.editPost(post).subscribe(() => { })
       } else {
         post.likes.push(heart)
-        this.postSvc.editPost(post).subscribe(() =>{})
+        this.postSvc.editPost(post).subscribe(() => { })
       }
     }
   }
 
 
-  allLikes(post:Post):number{
+  allLikes(post: Post): number {
     let i = 0
-    for(let l of post.likes){
+    for (let l of post.likes) {
       i++
     }
     return i

@@ -1,61 +1,96 @@
 {
   "users": [
     {
-      "email": "francy@gmail.com",
-      "password": "$2a$10$M9NBCfN6JdjpNvvqTs1W4O9usuGcvJuCklBJTTfbtNb1xGkAKU2MO",
-      "name": "Francy",
-      "btd": "1625-05-02",
-      "id": 4
+      "email": "fsutu96@gmail.com",
+      "password": "$2a$10$z4r13l0elJLA9/hcw.6Msup/YUbm.snm9F/y9eoCG5OawCtuOCxhm",
+      "name": "Florin",
+      "btd": "1996-07-29",
+      "id": 1
     },
     {
-      "email": "florin@gmail.com",
-      "password": null,
-      "name": "florin",
-      "btd": "4255-05-21",
-      "id": 5
+      "email": "francy@yahoo.it",
+      "password": "$2a$10$6AxMM5uXDkspNQIlgEdLjOgnO/JW0QgH3F6uXK1WfIgd.Qn3wqEIe",
+      "name": "francy",
+      "btd": "1990-01-01",
+      "id": 2
     },
     {
-      "email": "Laborum@gmail.com",
-      "password": "$2a$10$wMCEd0RupbmKjcHBv7CcYOrUiea/H4qJXwUaIkdEhHPA.pQbNKsAK",
-      "name": "Eos quod architecto ",
-      "btd": "2012-07-02",
-      "id": 6
-    },
-    {
-      "email": "Numquam@gmail.com",
-      "password": "$2a$10$wEVri2muWse.URCeRnKuNOsnBrlGdy9xu25fnHuEiBgV3ANxv7TL2",
-      "name": "Dicta repellendus A",
-      "btd": "1999-01-24",
-      "id": 7
-    },
-    {
-      "email": "carisio1234@gmail.com",
-      "password": null,
+      "email": "carisio@gmail.com",
+      "password": "$2a$10$mY/Lk05HXDmI5cPqAhOkWOY9olSJ6QjwEzzFUtM4dTKYp0PF6AQqO",
       "name": "ilCary",
-      "btd": "2001-09-30",
-      "id": 8,
-      "dtb": "2001-09-30"
+      "btd": "2010-09-30",
+      "id": 3
     }
   ],
   "posts": [
     {
-      "title": "Minima at illum max",
-      "content": "Laboris explicabo V",
-      "dateOfPublish": "2022-09-20T09:22:46.886Z",
+      "title": "post di francesca",
+      "content": "ciaoooo",
+      "dateOfPublish": "2022-09-20T17:10:42.858Z",
       "likes": [
-        4,
-        8
+        2,
+        3
       ],
-      "userId": 4,
-      "id": 1
+      "userId": 2,
+      "id": 2
     },
     {
-      "title": "Id ipsum qui blandi",
-      "content": "Quidem blanditiis do",
-      "dateOfPublish": "2022-09-20T10:52:23.632Z",
+      "title": "post2",
+      "content": "afasfsfsa",
+      "dateOfPublish": "2022-09-20T17:12:36.675Z",
+      "likes": [
+        3
+      ],
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "title": "asfaf",
+      "content": "safasfsaf",
+      "dateOfPublish": "2022-09-20T17:12:40.095Z",
+      "likes": [
+        3
+      ],
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "title": "safsafsf",
+      "content": "safgeqgeqg",
+      "dateOfPublish": "2022-09-20T17:12:55.385Z",
+      "likes": [
+        3
+      ],
+      "userId": 1,
+      "id": 5
+    },
+    {
+      "title": "vavasdvav",
+      "content": "egwegewgewg",
+      "dateOfPublish": "2022-09-20T17:13:04.933Z",
       "likes": [],
-      "userId": 5,
-      "id": 2
+      "userId": 1,
+      "id": 6
+    },
+    {
+      "title": "prova",
+      "content": "34566262",
+      "dateOfPublish": "2022-09-20T17:27:29.836Z",
+      "likes": [
+        3
+      ],
+      "userId": 1,
+      "id": 7
+    },
+    {
+      "title": "prova4",
+      "content": "wrehwerhwerhcvcvcvcvcv",
+      "dateOfPublish": "2022-09-20T17:29:42.329Z",
+      "likes": [
+        3
+      ],
+      "userId": 3,
+      "id": 8
     }
   ]
 }
