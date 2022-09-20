@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'signin', loadChildren: () => import('./pages/signin/signin.module').then(m => m.SigninModule) },
   { path: 'post', loadChildren: () => import('./pages/post/post.module').then(m => m.PostModule) },
-  { path: 'profile', loadChildren: () => import('./client-profile/client-profile.module').then(m => m.ClientProfileModule), canActivate:[NoLoggedNavGuard] }];
+  { path: 'profile/:id', loadChildren: () => import('./client-profile/client-profile.module').then(m => m.ClientProfileModule), canActivate:[NoLoggedNavGuard] }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

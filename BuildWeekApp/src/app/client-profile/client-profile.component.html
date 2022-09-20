@@ -7,10 +7,11 @@
 
 
 <div class="contenthead">
-<div class="refs">
+   <h4>{{currentUser.email}}</h4>
 
-  <h4>{{currentUser.email}}</h4>
-</div>
+  </div>
+<div *ngIf="owner" class="refs">
+
 
 
   <button nz-button (click)="deleteUser()" nzType="dashed">Delete profile</button>
@@ -70,9 +71,9 @@
     </ng-template>
   </nz-modal>
 
-  <h2>Create a new post!</h2>
+  <div  *ngIf="owner" class="formForPost">
 
-
+  <h2  >Create a new post!</h2>
 
   <form >
     <input nz-input placeholder="Titile" name="title" [(ngModel)]="currentPost.title" />
@@ -81,10 +82,10 @@
     <button nz-button nzType="primary" *ngIf=" formAction == 'edit'" (click)="editPost(currentPost)">Edit!</button>
   </form>
 
+</div>
 
 
-
-<h2>My posts:</h2>
+<h2 [textContent]="owner? 'My Post:': 'Post:' " ></h2>
 
 
 

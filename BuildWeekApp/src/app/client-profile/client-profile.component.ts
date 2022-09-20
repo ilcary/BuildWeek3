@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthResponse } from '../models/auth-response';
 import { ilogin } from '../models/ilogin';
 import { Post } from '../models/post';
 import { User } from '../models/user';
@@ -21,20 +22,25 @@ export class ClientProfileComponent implements OnInit {
   posts: Post[] = [];
   currentPost: Post = new Post('', '');
   formAction: string = 'create'
+  paramsId!: number
+  owner!:boolean
+  allUsers:User[] = [];
+  loggedUser!:User
 
   constructor(
     private userSrv: UserService,
     private auth: UserAuthService,
     private router: Router,
-    private postSvc:PostService
+    private postSvc:PostService,
+    private activeRouter: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    console.log(this.currentUser)
-
+    this.loggedUser = this.auth.getLoggedUser()
+    this.paramsId = Number(this.activeRouter.snapshot.paramMap.get('id'))
+    this.userSrv.getAllUsers().subscribe(r=>this.allUsers=r)
     this.currentUser = this.auth.getLoggedUser()
-    console.log(this.currentUser);
-
+    this.checkOwner()
     this.postSvc.getAllPosts().subscribe(
       {
         next: res => {
@@ -45,9 +51,12 @@ export class ClientProfileComponent implements OnInit {
     )
   }
 
-  editUser() {
-    console.log(this.currentUser.btd);
 
+  checkOwner(){
+    this.paramsId == this.currentUser.id ? this.owner=true : this.owner=false
+  }
+
+  editUser() {
     this.form = new FormGroup({
       name: new FormControl(this.currentUser.name, Validators.required),
       email: new FormControl(this.currentUser.email, Validators.required),

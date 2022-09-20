@@ -1,11 +1,10 @@
 <nz-header>
-  <nz-select nzMode="multiple" nzPlaceHolder="Inserted are removed" [(ngModel)]="listOfSelectedValue">
+  <nz-select  nzPlaceHolder="Inserted are removed" [(ngModel)]="listOfSelectedValue">
     <nz-option
       *ngFor="let option of userList"
+      (click)="select(option.id)"
       [nzLabel]="option.name"
       [nzValue]="option.name"
-      [nzHide]="!isNotSelected(option.name)"
-      (click)="select(option.id)"
     ></nz-option>
   </nz-select>
 </nz-header>
