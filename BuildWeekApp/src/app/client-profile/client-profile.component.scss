@@ -1,0 +1,32 @@
+#bg{
+ background-image: url('https://picsum.photos/200');
+ height: 200px;
+ background-repeat: no-repeat;
+ background-size: cover;
+ display: flex;
+ justify-content: end;
+}
+
+#avatar{
+  margin-bottom: -2rem;
+  width: 100px;
+  height: 100px;
+  background-color: #F0F2F5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contenthead{
+  margin-top: 2rem;
+}
+
+*{
+display: flex;
+align-items: center;
+flex-direction: column;
+text-align: center;
+margin-left: 1rem;
+margin-right: 1rem;
+}

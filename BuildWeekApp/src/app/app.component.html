@@ -10,7 +10,7 @@
         <span nz-icon nzType="home"></span>
         <span>Home</span>
       </li>
-      <li *ngIf="logged" [routerLink]="['/profile']" nz-menu-item>
+      <li *ngIf="logged" [routerLink]="['/profile/'+client.id]" nz-menu-item>
         <span nz-icon nzType="user"></span>
         <span>Profilo</span>
       </li>
@@ -29,7 +29,7 @@
     </ul>
   </nz-sider>
   <nz-layout>
-    <nz-header></nz-header>
+
     <nz-content>
 
 

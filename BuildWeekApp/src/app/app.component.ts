@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Post } from './models/post';
 import { User } from './models/user';
 import { UserAuthService } from './services/user-auth.service';
 import { UserService } from './services/user.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -10,20 +13,19 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'BuildWeekApp';
   client!:User
   logged!: boolean
+  searchedPost:Post[]=[]
+
+
 
 
   constructor(private userSrv: UserService, private auth: UserAuthService, private router : Router){}
 
   ngOnInit(): void {
-
-
     this.router.events.subscribe(()=> this.checkForActualUser())
-
-
   }
+
 
   checkForActualUser():void{
     this.logged  = this.auth.isUserLogged()
@@ -39,6 +41,9 @@ export class AppComponent implements OnInit{
   logOut(){
     this.auth.logOut()
     this.checkForActualUser()
+    this.router.navigate(['/']);
   }
+
+
 
 }

@@ -26,8 +26,8 @@ export class UserService {
     return this.http.post<User>(this.api_UserUrl, user)
   }
 
-  editUser(user:User):Observable<User>{
-    return this.http.patch<User>(this.api_UserUrl + user.id, user)
+  editUser(user:User,id:number):Observable<User>{
+    return this.http.patch<User>(this.api_UserUrl + id, user)
   }
 
   deleteUser(user:User):Observable<User>{
