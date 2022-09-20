@@ -1,4 +1,4 @@
-import { like } from "./Ilike";
+
 import { ipost } from "./ipost";
 import { User } from "./user";
 
@@ -9,9 +9,9 @@ export class Post implements ipost {
   userId: number| undefined;
   dateOfPublish: Date;
   user!:User
-  likes:like[]
+  likes:number[]
 
-  constructor(title: string, content: string, likes:like[] = []) {
+  constructor(title: string, content: string, likes:number[] = []) {
 
     this.title = title
     this.content = content

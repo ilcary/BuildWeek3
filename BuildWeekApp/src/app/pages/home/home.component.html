@@ -1,4 +1,14 @@
-
+<nz-header>
+  <nz-select nzMode="multiple" nzPlaceHolder="Inserted are removed" [(ngModel)]="listOfSelectedValue">
+    <nz-option
+      *ngFor="let option of userList"
+      [nzLabel]="option.name"
+      [nzValue]="option.name"
+      [nzHide]="!isNotSelected(option.name)"
+      (click)="select(option.id)"
+    ></nz-option>
+  </nz-select>
+</nz-header>
 
 <!-- post -->
 <!-- post -->
@@ -26,5 +36,3 @@
   <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
 </ng-template>
 </div>
-
-<h1>ciao</h1>
