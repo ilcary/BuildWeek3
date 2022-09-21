@@ -1,36 +1,53 @@
 <nz-header>
-  <nz-select nzPlaceHolder="Inserted are removed" (click)="select(1)">
-    <nz-option *ngFor="let option of userList"
-     (click)="select(option.id)"
-     [nzLabel]="option.name"
-     [nzValue]="option.name">
-   </nz-option>
-  </nz-select>
+<div class="search-bar">
+  <label class="input-search" for="">
+    <input type="text" (input)="filterOptionUser(searched)" [(ngModel)]="searched" placeholder="Find new friends!">
+    <div class="search-menu">
+      <div class="search-related">
+        <a *ngFor="let option of searchedUsers"  [routerLink]="['profile/'+option.id]">
+          <span>{{option.name}}</span>
+        </a>
+      </div>
+    </div>
+  </label>
+  <a class="search-btn" href=""><fa-icon [icon]="faMagnifyingGlass"></fa-icon></a>
+</div>
 </nz-header>
 
-<!-- post -->
-<!-- post -->
+<!-- option.name -->
+<!-- *ngFor="let option of userList" -->
 
-<app-form-post *ngIf="currentUser" (onNewPostCreated)="addPost($event)" (onEditPost)="editPost($event)"
+<!-- post -->
+<!-- post -->
+<div class="sectionHome">
+
+  <app-form-post *ngIf="currentUser" (onNewPostCreated)="addPost($event)" (onEditPost)="editPost($event)"
   [currentPost]="currentPost" [formAction]="formAction">
 </app-form-post>
 
-<div *ngFor="let post of posts">
+<div class="singleCard" *ngFor="let post of posts">
   <nz-card style="width:300px;"
-  [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
+  [nzActions]="[actionDelete, actionEdit, actionLike, actionComment]"
   nzTitle={{findAuthor(post.userId)}} >
-    <nz-card-meta
-    nzTitle={{post.title}}
-    nzDescription={{post.content}}>
-  </nz-card-meta>
-  </nz-card>
-  <ng-template #actionSetting>
-    <span (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="delete"></span>
-  </ng-template>
-  <ng-template #actionEdit>
-    <span (click)="addToEdit(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></span>
-  </ng-template>
-  <ng-template #actionEllipsis>
-    <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
-  </ng-template>
+  <nz-card-meta
+  nzTitle={{post.title}}
+  nzDescription={{post.content}}>
+</nz-card-meta>
+</nz-card>
+<ng-template #actionDelete>
+  <span (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="delete"></span>
+</ng-template>
+<ng-template #actionEdit>
+  <span (click)="addToEdit(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></span>
+</ng-template>
+<ng-template #actionLike>
+  <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
+</ng-template>
+<ng-template #actionComment>
+  <span (click)="comment(post)" nz-icon nzType="message"></span>
+
+
+
+</ng-template>
+</div>
 </div>
