@@ -10,13 +10,15 @@ export class Post implements ipost {
   dateOfPublish: Date;
   user!:User
   likes:number[]
+  commentCollapsed: boolean
 
-  constructor(title: string, content: string, likes:number[] = []) {
+  constructor(title: string, content: string, likes:number[] = [],commentCollapsed: boolean = false) {
 
     this.title = title
     this.content = content
     this.dateOfPublish = new Date()
     this.likes=likes
+    this.commentCollapsed = commentCollapsed
   }
 
 }

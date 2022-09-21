@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZModule } from './ng-zorro/ng-z/ng-z.module';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 registerLocaleData(it);
 
@@ -26,7 +27,8 @@ registerLocaleData(it);
     HttpClientModule,
     BrowserAnimationsModule,
     NgZModule,
-    NzInputModule
+    NzInputModule,
+    FontAwesomeModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: it_IT }

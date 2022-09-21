@@ -7,7 +7,9 @@ import { PostService } from 'src/app/services/post.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
-
+import { faMagnifyingGlass, faComment } from '@fortawesome/free-solid-svg-icons'
+import { CommentService } from 'src/app/services/comment.service';
+import { Comment } from '../../models/comment';
 
 @Component({
   selector: 'app-home',
@@ -22,15 +24,28 @@ export class HomeComponent implements OnInit {
   searchword!: string
   userList:User[]=[]
   strArrUsers: string[] = []
+  searched!:string
+  searchedUsers: User[] = []
+  allComments: Comment[] = []
+  commentContent!:string
 
+  faMagnifyingGlass=faMagnifyingGlass
+  faComment = faComment
 
   apiUrl: string = 'http://localhost:3000/posts'
 
-  constructor(private postSvc: PostService, private authSvc: UserAuthService, private userSvc : UserService, private router:Router) { }
+  constructor(
+    private postSvc: PostService,
+    private authSvc: UserAuthService,
+    private userSvc : UserService,
+    private router:Router,
+    private commentSvc: CommentService
+    ) { }
 
   posts: Post[] = [];
 
   ngOnInit(): void {
+
     this.userSvc.getAllUsers().subscribe(res=>{
       this.userList = res
     })
@@ -45,6 +60,8 @@ export class HomeComponent implements OnInit {
         error: error => console.log(error)
       }
     )
+    this.commentSvc.getAllComments().subscribe(res => this.allComments = res )
+
   }
 
   findAuthor(id: number | undefined): string {
@@ -130,7 +147,7 @@ export class HomeComponent implements OnInit {
 
   select(id:number|undefined){
     if(id){
-      this.router.navigate(['/users/' + id])
+      this.router.navigate(['/profile/' + id])
     }
   }
 
@@ -140,6 +157,73 @@ export class HomeComponent implements OnInit {
   isNotSelected(value: string): boolean {
     return this.listOfSelectedValue.indexOf(value) === -1;
   }
+
+  filterOptionUser(searched:string){
+    if(searched.length !== 0){
+    let search:string = searched.toLowerCase()
+   this.searchedUsers = this.userList.filter(user => user.name.toLowerCase().includes(search))
+  }else{
+    this.searchedUsers=[]
+  }
+}
+
+comment(post:Post){}
+
+openedCom:Post[]=[]
+
+openContent(post:Post){
+  this.commentSvc.getCommentOfPost(post).subscribe(comments => this.allComments = comments)
+  this.openedCom.push(post)
+  console.log(this.openedCom);
+
+  /* LOGICA COMMENTI APERTI */
+  if( this.openedCom.length > 1 && this.openedCom[0]!==this.openedCom[1]){
+    this.openedCom[0].commentCollapsed = false
+    this.openedCom.shift()
+    console.log(this.openedCom);
+  }
+  if(this.openedCom[0]==this.openedCom[1]){
+    this.openedCom=[]
+  }
+  post.commentCollapsed= !post.commentCollapsed
+
+}
+
+
+
+createComment( commentContent:string, post:Post){
+  if(this.currentUser && this.currentUser.id && post.id){
+   let comment = new Comment(commentContent,this.currentUser.id,post.id)
+    this.commentSvc.addComment(comment).subscribe(comment => this.allComments.push(comment))
+    this.commentContent=''
+  }
+}
+
+timeElapsed(past: Date):string{
+  let today:string = String(new Date())
+  console.log(past);
+  let pastTimeNum= Date.parse(String(past))
+  let todayTimeNum= Date.parse(today)
+  console.log(past);
+
+  let elapsed:any = (todayTimeNum - pastTimeNum)/(1000*60*60*24)
+  console.log(elapsed);
+
+  /* CALOCO TEMPO PASSATO DALLA DATA DI PUBLICAZIONE */
+  if(elapsed < 1/(60*24))
+  return 'just right now'
+  if(elapsed < 1/24)
+  return `${(elapsed*(60*24)).toFixed(0)} minutes ago`
+  if(elapsed < 1)
+  return `${(elapsed*24).toFixed(0)} hours ago`
+  if(elapsed < 31)
+  return `${(elapsed).toFixed(0)} days ago`
+  if(elapsed > 365)
+  return `${(elapsed/365).toFixed(0)} years ago`
+  if(elapsed > 62)
+  return `${(elapsed/30).toFixed(0)} months ago`
+  else return 'popi popi'
+}
 
 
 }

@@ -16,7 +16,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./client-profile.component.scss'],
 })
 export class ClientProfileComponent implements OnInit {
-  currentUser!: User
+  currentUser: User = new User('','',new Date(),'');
   isVisible = false;
   form!: FormGroup;
   posts: Post[] = [];
@@ -26,9 +26,7 @@ export class ClientProfileComponent implements OnInit {
   owner!: boolean
   allUsers: User[] = [];
   loggedUser!: User
-
-  errorDate: Date = new Date();
-  errorUser: User = new User('', '', this.errorDate, '');
+  errorUser: User = new User('', '', new Date(), '');
 
   constructor(
     private userSrv: UserService,
@@ -46,9 +44,9 @@ export class ClientProfileComponent implements OnInit {
     this.userSrv.getAllUsers().subscribe(r => this.allUsers = r)
 
     this.checkOwner()
-    
+
     this.userSrv.getUserById(String(this.paramsId)).subscribe({
-      next: res => this.currentUser = res,
+      next: res => {this.currentUser = res},
       error: () => this.currentUser = this.errorUser
     })
 
@@ -59,11 +57,11 @@ export class ClientProfileComponent implements OnInit {
 
   }
 
-  checkOwner() {
+  checkOwner():void {
     this.paramsId == this.loggedUser.id ? this.owner = true : this.owner = false
   }
 
-  editUser() {
+  editUser():void {
     this.form = new FormGroup({
       name: new FormControl(this.currentUser.name, Validators.required),
       email: new FormControl(this.currentUser.email, Validators.required),
@@ -78,7 +76,7 @@ export class ClientProfileComponent implements OnInit {
     this.isVisible = false;
   }
 
-  saveProfileData() {
+  saveProfileData():void {
     if (this.currentUser.id)
       this.userSrv.editUser(this.form.value, this.currentUser.id).subscribe({
         next: (user) => {
@@ -111,7 +109,7 @@ export class ClientProfileComponent implements OnInit {
       });
   }
 
-  deleteUser() {
+  deleteUser():void {
     Swal.fire({
       title: 'warning!',
       text: "You won't be able to revert this!",
@@ -174,7 +172,7 @@ export class ClientProfileComponent implements OnInit {
     })
   }
 
-  editPost(post: Post) {
+  editPost(post: Post):void {
     console.log(post);
     this.postSvc.editPost(post).subscribe(res => {
       let index = this.posts.findIndex((todo: Post) => todo.id == res.id)
@@ -195,7 +193,7 @@ export class ClientProfileComponent implements OnInit {
     this.formAction = 'edit'
   }
 
-  addLike(post: Post) {
+  addLike(post: Post):void {
     if (post.id && this.currentUser?.id) {
       let heart: number = this.currentUser.id
       if (post.likes.includes(heart)) {

@@ -4,14 +4,14 @@
 
   <div id="bg">
     <div id="avatar">
-      <h1>{{currentUser?.name}}</h1>
+      <h1>{{currentUser.name}}</h1>
     </div>
   </div>
 
 
 
   <div class="contenthead">
-    <h4>{{currentUser?.email}}</h4>
+    <h4>{{currentUser.email}}</h4>
   </div>
 
   <div *ngIf="owner" class="refs">
@@ -85,7 +85,7 @@
 
   <h2 [textContent]="owner? 'My Post:': 'Post:' "></h2>
 
-
+<div class="cardcontainer">
 
   <div *ngFor="let post of posts">
     <nz-card style="width:300px;" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
@@ -101,5 +101,5 @@
       <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
     </ng-template>
   </div>
-
+</div>
 </section>

@@ -24,73 +24,38 @@
   ],
   "posts": [
     {
-      "title": "post di francesca",
-      "content": "ciaoooo",
-      "dateOfPublish": "2022-09-20T17:10:42.858Z",
-      "likes": [
-        2,
-        3
-      ],
-      "userId": 2,
-      "id": 2
-    },
-    {
-      "title": "post2",
-      "content": "afasfsfsa",
-      "dateOfPublish": "2022-09-20T17:12:36.675Z",
-      "likes": [
-        3
-      ],
-      "userId": 2,
-      "id": 3
-    },
-    {
-      "title": "asfaf",
-      "content": "safasfsaf",
+      "title": "Finalmente developer!",
+      "content": "Ciao a tutti ragazzi ho appena finito il corso frontend developer con Epicode",
       "dateOfPublish": "2022-09-20T17:12:40.095Z",
       "likes": [
-        3
+        3,
+        1
       ],
       "userId": 2,
       "id": 4
-    },
+    }
+  ],
+  "comments": [
     {
-      "title": "safsafsf",
-      "content": "safgeqgeqg",
-      "dateOfPublish": "2022-09-20T17:12:55.385Z",
-      "likes": [
-        3
-      ],
-      "userId": 1,
-      "id": 5
-    },
-    {
-      "title": "vavasdvav",
-      "content": "egwegewgewg",
-      "dateOfPublish": "2022-09-20T17:13:04.933Z",
-      "likes": [],
-      "userId": 1,
-      "id": 6
-    },
-    {
-      "title": "prova",
-      "content": "34566262",
-      "dateOfPublish": "2022-09-20T17:27:29.836Z",
-      "likes": [
-        3
-      ],
-      "userId": 1,
-      "id": 7
-    },
-    {
-      "title": "prova4",
-      "content": "wrehwerhwerhcvcvcvcvcv",
-      "dateOfPublish": "2022-09-20T17:29:42.329Z",
-      "likes": [
-        3
-      ],
+      "content": "ciao come è andata la tua magnifica esperienza con epicode ?",
       "userId": 3,
-      "id": 8
+      "postId": 4,
+      "dateOfPublish": "2022-09-21T14:46:00.973Z",
+      "id": 2
+    },
+    {
+      "content": "fammi sapere",
+      "userId": 3,
+      "postId": 4,
+      "dateOfPublish": "2022-09-21T14:46:08.261Z",
+      "id": 3
+    },
+    {
+      "content": "Ciao ilCary è stata una bella esperienza!!!",
+      "userId": 2,
+      "postId": 4,
+      "dateOfPublish": "2022-09-21T14:49:00.791Z",
+      "id": 4
     }
   ]
 }
