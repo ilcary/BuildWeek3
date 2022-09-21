@@ -8,8 +8,6 @@ import { Post } from 'src/app/models/post';
 })
 export class FormPostComponent implements OnInit {
 
-  uploadImg!:any
-
   editPost(): void {
     this.onEditPost.emit(this.currentPost)
     this.refreshInput()
@@ -18,17 +16,9 @@ export class FormPostComponent implements OnInit {
   sendPost(): void {
    this.onNewPostCreated.emit(this.currentPost);
    this.refreshInput()
-   this.readFileAsDataURL(this.uploadImg)
   }
 
-  readFileAsDataURL(file:any) {
-    return new Promise((resolve,reject) => {
-       let fileredr = new FileReader();
-       fileredr.onload = () => resolve(fileredr.result);
-       fileredr.onerror = () => reject(fileredr);
-       fileredr.readAsDataURL(file);
-    });
-  }
+
 
 
   refreshInput(): void {

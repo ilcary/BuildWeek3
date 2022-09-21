@@ -56,6 +56,13 @@
       "postId": 4,
       "dateOfPublish": "2022-09-21T14:49:00.791Z",
       "id": 4
+    },
+    {
+      "content": "ciao ragazzi",
+      "userId": 2,
+      "postId": 4,
+      "dateOfPublish": "2022-09-21T15:11:49.637Z",
+      "id": 5
     }
   ]
 }
