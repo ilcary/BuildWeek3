@@ -7,7 +7,7 @@ import { FormPostComponent } from './form-post/form-post.component';
 import { FormsModule } from '@angular/forms';
 import { NgZModule } from 'src/app/ng-zorro/ng-z/ng-z.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { NzCollapseModule } from 'ng-zorro-antd/collapse'
 
 @NgModule({
   declarations: [
@@ -20,7 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     NgZModule,
     NzDropDownModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NzCollapseModule
   ]
 })
 export class HomeModule { }
