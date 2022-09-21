@@ -7,6 +7,7 @@ import { PostService } from 'src/app/services/post.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 @Component({
@@ -22,7 +23,9 @@ export class HomeComponent implements OnInit {
   searchword!: string
   userList:User[]=[]
   strArrUsers: string[] = []
-
+  searched!:string
+  searchedUsers: User[] = []
+  faMagnifyingGlass=faMagnifyingGlass
 
   apiUrl: string = 'http://localhost:3000/posts'
 
@@ -130,7 +133,7 @@ export class HomeComponent implements OnInit {
 
   select(id:number|undefined){
     if(id){
-      this.router.navigate(['/users/' + id])
+      this.router.navigate(['/profile/' + id])
     }
   }
 
@@ -140,6 +143,17 @@ export class HomeComponent implements OnInit {
   isNotSelected(value: string): boolean {
     return this.listOfSelectedValue.indexOf(value) === -1;
   }
+
+  filterOptionUser(searched:string){
+    if(searched.length !== 0){
+    let search:string = searched.toLowerCase()
+   this.searchedUsers = this.userList.filter(user => user.name.toLowerCase().includes(search))
+  }else{
+    this.searchedUsers=[]
+  }
+}
+
+comment(post:Post){}
 
 
 }

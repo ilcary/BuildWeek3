@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 import { FormPostComponent } from './form-post/form-post.component';
 import { FormsModule } from '@angular/forms';
 import { NgZModule } from 'src/app/ng-zorro/ng-z/ng-z.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { NgZModule } from 'src/app/ng-zorro/ng-z/ng-z.module';
     HomeRoutingModule,
     FormsModule,
     NgZModule,
-    NzDropDownModule
+    NzDropDownModule,
+    FontAwesomeModule
   ]
 })
 export class HomeModule { }
