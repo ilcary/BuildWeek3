@@ -47,6 +47,14 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  findAuthor(id: number | undefined): string {
+
+    let author = this.userList.find((user: User) => user.id == id)
+    if (author)
+    return author.name
+    else return 'unknown author'
+  }
+
   deletePost(post: Post): void {
     this.postSvc.deletePost(post).subscribe(() => {
       let index: number = this.posts.findIndex(p => p.id === post.id)
