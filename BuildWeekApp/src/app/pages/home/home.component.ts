@@ -28,6 +28,9 @@ export class HomeComponent implements OnInit {
   searchedUsers: User[] = []
   allComments: Comment[] = []
   commentContent!:string
+  commentAction: string = 'create'
+  currentComment: Comment = new Comment('',0,0,new Date())
+  errorUser: User = new User('', '', new Date(), '');
 
   faMagnifyingGlass=faMagnifyingGlass
   faComment = faComment
@@ -64,12 +67,12 @@ export class HomeComponent implements OnInit {
 
   }
 
-  findAuthor(id: number | undefined): string {
+  findAuthor(id: number | undefined): User {
 
     let author = this.userList.find((user: User) => user.id == id)
     if (author)
-    return author.name
-    else return 'unknown author'
+    return author
+    else return this.errorUser
   }
 
   deletePost(post: Post): void {
@@ -107,6 +110,7 @@ export class HomeComponent implements OnInit {
     this.postSvc.editPost(post).subscribe(res => {
       let index = this.posts.findIndex((post: Post) => post.id == res.id)
       this.posts.splice(index, 1, post)
+      this.formAction = 'create'
       Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -190,7 +194,6 @@ openContent(post:Post){
 }
 
 
-
 createComment( commentContent:string, post:Post){
   if(this.currentUser && this.currentUser.id && post.id){
    let comment = new Comment(commentContent,this.currentUser.id,post.id)
@@ -199,15 +202,37 @@ createComment( commentContent:string, post:Post){
   }
 }
 
+deleteComment(comment: Comment):void{
+  this.commentSvc.deleteComment(comment).subscribe( () => {
+    this.allComments = this.allComments.filter(n => n.id != comment.id)
+  })
+}
+
+editComment(comment:Comment):void{
+  comment.content = this.commentContent
+  this.commentSvc.editComment(comment).subscribe( comment =>{
+    let index = this.allComments.findIndex((c:Comment) => c.id == comment.id)
+      this.allComments.splice(index, 1, comment)
+  })
+  this.commentAction = 'create'
+}
+
+addCommentToEdit(comment: Comment): void {
+  comment = Object.assign({}, comment)
+  console.log(this.currentComment)
+    this.commentContent = comment.content
+    this.currentComment.id = comment.id
+    this.currentComment.postId = comment.postId
+    this.currentComment.userId = comment.userId
+    this.currentComment.dateOfPublish = comment.dateOfPublish
+    this.commentAction = 'edit'
+}
+
 timeElapsed(past: Date):string{
   let today:string = String(new Date())
-  console.log(past);
   let pastTimeNum= Date.parse(String(past))
   let todayTimeNum= Date.parse(today)
-  console.log(past);
-
   let elapsed:any = (todayTimeNum - pastTimeNum)/(1000*60*60*24)
-  console.log(elapsed);
 
   /* CALOCO TEMPO PASSATO DALLA DATA DI PUBLICAZIONE */
   if(elapsed < 1/(60*24))
@@ -224,6 +249,8 @@ timeElapsed(past: Date):string{
   return `${(elapsed/30).toFixed(0)} months ago`
   else return 'popi popi'
 }
+
+
 
 
 }

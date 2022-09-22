@@ -1,5 +1,4 @@
 
-
 .d-none{
   background-color: black;
 }
@@ -97,8 +96,8 @@ margin-top: 1.2rem;
 }
 }
 
-nz-collapse-panel p{
-  width: 200px;
+nz-collapse-panel {
+  width: 280px;
 }
 
 .commentIcon{
@@ -147,4 +146,8 @@ button{
   h4{
     padding-top:5px ;
   }
+}
+
+nz-card{
+  width:280px;
 }
