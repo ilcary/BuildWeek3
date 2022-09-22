@@ -1,101 +1,51 @@
 {
   "users": [
     {
-      "email": "fsutu96@gmail.com",
-      "password": "$2a$10$z4r13l0elJLA9/hcw.6Msup/YUbm.snm9F/y9eoCG5OawCtuOCxhm",
-      "name": "Florin",
-      "btd": "1996-07-29",
-      "id": 1,
-      "notifications": [],
-      "friends": []
-    },
-    {
-      "email": "francy@yahoo.it",
-      "password": "$2a$10$yvvhXyG459U5wqJoLOsOG.S7yNlawSCmtV7z9YV4B0a5.r6wSFbZm",
-      "name": "francy",
-      "btd": "1990-01-01",
-      "id": 2,
-      "notifications": [
-        "Florin sent you a friend request"
-      ],
-      "friends": []
-    },
-    {
       "email": "carisio@gmail.com",
-      "password": "$2a$10$rxlBCse0CEH2lFH84aZlJ.4JcQYBhlL9AIX1BbP/HYoiUFfAYUKSC",
+      "password": "$2a$10$jjLdb8bXM7l0SWI8IMMVYe6qIxxqmb4LGS6yrBYyRdt65nRuQtXoO",
       "name": "ilCary",
-      "btd": "2010-09-30",
-      "id": 3,
-      "notifications": [
-        "Florin sent you a friend request",
-        "Florinsent you a friend request"
-      ],
-      "friends": []
+      "btd": "2001-09-30",
+      "friends": [],
+      "notifications": [],
+      "id": 1
+    },
+    {
+      "email": "francy@gmail.com",
+      "password": "$2a$10$gaf5fyRVO94zBuMUOrtlmOhh7jOLgfweS9Q.FJwBJcKSE2LcIw.fC",
+      "name": "FrancyFrancy",
+      "btd": "1689-09-30",
+      "friends": [],
+      "notifications": [],
+      "id": 2
     }
   ],
   "posts": [
     {
-      "title": "Finalmente developer!",
-      "content": "Ciao a tutti ragazzi ho appena finito il corso frontend developer con Epicode",
-      "dateOfPublish": "2022-09-20T17:12:40.095Z",
-      "likes": [
-        3,
-        1
-      ],
-      "userId": 2,
-      "id": 4
-    },
-    {
-      "title": "ciao",
-      "content": "come va? bellissimi",
-      "dateOfPublish": "2022-09-22T08:14:27.229Z",
+      "title": "Papppereeeeeeeeeeeeeeee",
+      "content": "popolo di striscia benvenuti a Catanzaro!",
+      "dateOfPublish": "2022-09-22T12:24:12.730Z",
       "likes": [
         1
       ],
       "commentCollapsed": false,
       "userId": 1,
-      "id": 5
-    },
-    {
-      "title": "prova3",
-      "content": "tutto bene",
-      "dateOfPublish": "2022-09-22T09:20:05.782Z",
-      "likes": [
-        1
-      ],
-      "commentCollapsed": false,
-      "userId": 1,
-      "id": 6
+      "id": 1
     }
   ],
   "comments": [
     {
-      "content": "ciao come è andata la tua magnifica esperienza con epicode ?",
-      "userId": 3,
-      "postId": 4,
-      "dateOfPublish": "2022-09-21T14:46:00.973Z",
-      "id": 2
-    },
-    {
-      "content": "fammi sapere",
-      "userId": 3,
-      "postId": 4,
-      "dateOfPublish": "2022-09-21T14:46:08.261Z",
-      "id": 3
-    },
-    {
-      "content": "Ciao ilCary è stata una bella esperienza!!!",
-      "userId": 2,
-      "postId": 4,
-      "dateOfPublish": "2022-09-21T14:49:00.791Z",
-      "id": 4
+      "content": "ciao ragazzi",
+      "userId": 1,
+      "postId": 1,
+      "dateOfPublish": "2022-09-22T12:38:58.297Z",
+      "id": 1
     },
     {
       "content": "ciao ragazzi",
       "userId": 2,
-      "postId": 4,
-      "dateOfPublish": "2022-09-21T15:11:49.637Z",
-      "id": 5
+      "postId": 1,
+      "dateOfPublish": "2022-09-22T12:49:28.130Z",
+      "id": 2
     }
   ]
 }

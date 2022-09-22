@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Iregister } from 'src/app/models/iregister';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 
 @Component({
@@ -29,8 +30,10 @@ export class SigninComponent implements OnInit {
 
   submit():void{
     console.log(this.form.value);
-
-    this.auth.register(this.form.value)
+let newUser = this.form.value
+newUser.friends = []
+newUser.notifications = []
+    this.auth.register(newUser)
     .subscribe(res => {
       console.log(res);
       this.router.navigate(['/']);

@@ -3,4 +3,6 @@ export interface Iregister {
   email: string;
   btd: Date
   password: string;
+  friends: number[]
+  notifications: any[]
 }
