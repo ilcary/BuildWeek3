@@ -29,7 +29,7 @@
 <div class="singleCard" *ngFor="let post of posts">
 
   <!-- CARD POST -->
-  <nz-card  style="width:300px;"
+  <nz-card
   [nzActions]="[actionComment, actionDelete, actionEdit, actionLike ]"
   nzTitle={{findAuthor(post.userId)}} >
   <nz-card-meta

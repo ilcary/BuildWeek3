@@ -2,13 +2,15 @@
 
 <section *ngIf="currentUser != errorUser">
 
+
+
   <div id="bg">
     <div id="avatar">
       <h1>{{currentUser.name}}</h1>
     </div>
   </div>
 
-
+<div class="userInfo">
 
   <div class="contenthead">
     <h4>{{currentUser.email}}</h4>
@@ -62,7 +64,6 @@
     </ng-template>
 
     <ng-template #modalFooter>
-      <span>Modal Footer:</span>
       <button nz-button nzType="default" (click)="handleCancel()">back</button>
     </ng-template>
   </nz-modal>
@@ -82,24 +83,60 @@
 
   </div>
 
+</div>
 
-  <h2 [textContent]="owner? 'My Post:': 'Post:' "></h2>
+  <h2 id="postTitle" [textContent]="owner? 'My Post:': 'Post:' "></h2>
 
 <div class="cardcontainer">
 
   <div *ngFor="let post of posts">
-    <nz-card style="width:300px;" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+    <nz-card [nzActions]="[actionComment, actionEdit,actionDelete, actionLike ]">
       <nz-card-meta nzTitle={{post.title}} nzDescription={{post.content}}></nz-card-meta>
     </nz-card>
-    <ng-template #actionSetting>
+    <ng-template #actionDelete>
       <span (click)="deletePost(post)" *ngIf="owner" nz-icon nzType="delete"></span>
     </ng-template>
     <ng-template #actionEdit>
       <span (click)="addToEdit(post)" *ngIf="owner " nz-icon nzType="edit"></span>
     </ng-template>
-    <ng-template #actionEllipsis>
+    <ng-template #actionLike>
       <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
     </ng-template>
+    <ng-template class="noborderplease" #actionComment>
+      <!-- <span (click)="comment(post)" nz-icon nzType="message"></span> -->
+      <span (click)="openContent(post)" class="commentIcon" nz-icon nzType="message"></span>
+    </ng-template>
+
+    <!-- COMMENTS -->
+    <nz-collapse class="noborderplease" nzGhost>
+      <nz-collapse-panel class="noborderplease"
+        [nzExpandedIcon]=""
+        [nzShowArrow]="false"
+        [nzActive]="post.commentCollapsed"
+      >
+      <!-- COMMENT CONTENT -->
+      <div *ngFor="let comment of allComments" >
+        <div class="commentHeader">
+          <h4>{{findAuthor(comment.userId)}}</h4>
+          <span>{{timeElapsed(comment.dateOfPublish)}}</span>
+        </div>
+
+        <p>{{comment.content}}</p>
+      </div>
+
+      <!-- COMMENT FOOTER -->
+    <div class="commentFooter">
+      <div>
+        <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
+        <button (click)="createComment(commentContent,post)" >send</button>
+      </div>
+    <button>&#8593;</button>
+    </div>
+
+    </nz-collapse-panel>
+    </nz-collapse>
+
+    </div>
   </div>
-</div>
+
 </section>
