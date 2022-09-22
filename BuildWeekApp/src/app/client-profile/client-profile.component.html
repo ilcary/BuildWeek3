@@ -16,7 +16,7 @@
     <h4>{{currentUser.email}}</h4>
   </div>
 
-  <button (click)="sendRequest(currentUser,social.friend)">Send Friend request</button>
+  <button *ngIf="!owner" (click)="sendRequest(currentUser,social.friend)">Send Friend request</button>
 
   <div *ngIf="owner" class="refs">
     <button nz-button (click)="deleteUser()" nzType="dashed">Delete profile</button>

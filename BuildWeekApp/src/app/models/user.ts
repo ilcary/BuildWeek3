@@ -6,14 +6,15 @@ export class User implements ilogin {
   email: string;
   btd: Date
   password: string;
-  friends: number[] = []
-  notifications: any[] 
+  friends: number[]
+  notifications: any[]
 
-  constructor(name:string, email:string, btd:Date, password:string,notifications: any[] = [] ){
+  constructor(name:string, email:string, btd:Date, password:string,notifications: any[] = [] ,friends:number[] = []){
     this.name = name
     this.email = email
     this.btd = btd
     this.password = password
     this.notifications = notifications
+    this.friends = friends
   }
 }
