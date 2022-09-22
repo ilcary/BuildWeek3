@@ -9,6 +9,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NzCardModule,
     FormsModule,
     NzInputModule,
-    NzIconModule
+    NzIconModule,
+    NzDropDownModule,
+    FontAwesomeModule,
+    NzCollapseModule
   ]
 })
 export class ClientProfileModule { }

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AuthResponse } from '../models/auth-response';
 import { ilogin } from '../models/ilogin';
 import { Post } from '../models/post';
 import { User } from '../models/user';
+import { CommentService } from '../services/comment.service';
 import { PostService } from '../services/post.service';
 import { UserAuthService } from '../services/user-auth.service';
 import { UserService } from '../services/user.service';
+import { Comment } from '../models/comment';
 
 @Component({
   selector: 'app-client-profile',
@@ -27,13 +28,16 @@ export class ClientProfileComponent implements OnInit {
   allUsers: User[] = [];
   loggedUser!: User
   errorUser: User = new User('', '', new Date(), '');
+  allComments: Comment[] = []
+  commentContent!:string
 
   constructor(
     private userSrv: UserService,
     private auth: UserAuthService,
     private router: Router,
     private postSvc: PostService,
-    private activeRouter: ActivatedRoute
+    private activeRouter: ActivatedRoute,
+    private commentSvc: CommentService
   ) { }
 
   ngOnInit(): void {
@@ -214,5 +218,69 @@ export class ClientProfileComponent implements OnInit {
     }
     return i
   }
+
+
+openedCom:Post[]=[]
+
+openContent(post:Post){
+  this.commentSvc.getCommentOfPost(post).subscribe(comments => this.allComments = comments)
+  this.openedCom.push(post)
+  console.log(this.openedCom);
+
+  /* LOGICA COMMENTI APERTI */
+  if( this.openedCom.length > 1 && this.openedCom[0]!==this.openedCom[1]){
+    this.openedCom[0].commentCollapsed = false
+    this.openedCom.shift()
+    console.log(this.openedCom);
+  }
+  if(this.openedCom[0]==this.openedCom[1]){
+    this.openedCom=[]
+  }
+  post.commentCollapsed= !post.commentCollapsed
+
+}
+
+findAuthor(id: number | undefined): string {
+
+  let author = this.allUsers.find((user: User) => user.id == id)
+  if (author)
+  return author.name
+  else return 'unknown author'
+}
+
+createComment( commentContent:string, post:Post){
+  if(this.currentUser && this.currentUser.id && post.id){
+   let comment = new Comment(commentContent,this.currentUser.id,post.id)
+    this.commentSvc.addComment(comment).subscribe(comment => this.allComments.push(comment))
+    this.commentContent=''
+  }
+}
+
+timeElapsed(past: Date):string{
+  let today:string = String(new Date())
+  console.log(past);
+  let pastTimeNum= Date.parse(String(past))
+  let todayTimeNum= Date.parse(today)
+  console.log(past);
+
+  let elapsed:any = (todayTimeNum - pastTimeNum)/(1000*60*60*24)
+  console.log(elapsed);
+
+  /* CALOCO TEMPO PASSATO DALLA DATA DI PUBLICAZIONE */
+  if(elapsed < 1/(60*24))
+  return 'just right now'
+  if(elapsed < 1/24)
+  return `${(elapsed*(60*24)).toFixed(0)} minutes ago`
+  if(elapsed < 1)
+  return `${(elapsed*24).toFixed(0)} hours ago`
+  if(elapsed < 31)
+  return `${(elapsed).toFixed(0)} days ago`
+  if(elapsed > 365)
+  return `${(elapsed/365).toFixed(0)} years ago`
+  if(elapsed > 62)
+  return `${(elapsed/30).toFixed(0)} months ago`
+  else return 'popi popi'
+}
+
 
 }
