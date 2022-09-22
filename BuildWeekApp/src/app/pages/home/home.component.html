@@ -31,7 +31,7 @@
   <!-- CARD POST -->
   <nz-card
   [nzActions]="[actionComment, actionDelete, actionEdit, actionLike ]"
-  nzTitle={{findAuthor(post.userId)}} >
+  nzTitle={{findAuthor(post.userId).name}}>
   <nz-card-meta
   nzTitle={{post.title}}
   nzDescription={{post.content}}>
@@ -43,7 +43,7 @@
   <span (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="delete"></span>
 </ng-template>
 <ng-template #actionEdit>
-  <span (click)="addToEdit(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></span>
+  <a (click)="addToEdit(post)" href="#" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></a>
 </ng-template>
 <ng-template #actionLike>
   <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
@@ -67,14 +67,19 @@
       <span>{{timeElapsed(comment.dateOfPublish)}}</span>
     </div>
 
-    <p>{{comment.content}}</p>
+    <p>{{comment.content}} <span></span> </p>
+    <div *ngIf="currentUser?.id == comment.userId ">
+    <button (click)="deleteComment(comment)">Delete</button>
+    <button (click)="addCommentToEdit(comment)">Edit</button>
+  </div>
   </div>
 
   <!-- COMMENT FOOTER -->
 <div class="commentFooter">
   <div>
     <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
-    <button (click)="createComment(commentContent,post)" >send</button>
+    <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
+    <button *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
   </div>
 <button>&#8593;</button>
 </div>

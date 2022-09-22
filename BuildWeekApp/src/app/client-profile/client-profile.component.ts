@@ -17,19 +17,21 @@ import { Comment } from '../models/comment';
   styleUrls: ['./client-profile.component.scss'],
 })
 export class ClientProfileComponent implements OnInit {
-  currentUser: User = new User('','',new Date(),'');
+  currentUser: User = new User('', '', new Date(), '');
   isVisible = false;
   form!: FormGroup;
   posts: Post[] = [];
   currentPost: Post = new Post('', '');
   formAction: string = 'create'
   paramsId!: number
-  owner!: boolean
+  owner: boolean = false
   allUsers: User[] = [];
   loggedUser!: User
   errorUser: User = new User('', '', new Date(), '');
   allComments: Comment[] = []
-  commentContent!:string
+  commentContent!: string
+  commentAction: string = 'create'
+  currentComment: Comment = new Comment('', 0, 0, new Date())
 
   constructor(
     private userSrv: UserService,
@@ -38,7 +40,13 @@ export class ClientProfileComponent implements OnInit {
     private postSvc: PostService,
     private activeRouter: ActivatedRoute,
     private commentSvc: CommentService
-  ) { }
+
+  ) {
+    this.router.events.subscribe((e) => {
+      this.ngOnInit()
+    })
+
+  }
 
   ngOnInit(): void {
 
@@ -50,7 +58,9 @@ export class ClientProfileComponent implements OnInit {
     this.checkOwner()
 
     this.userSrv.getUserById(String(this.paramsId)).subscribe({
-      next: res => {this.currentUser = res},
+      next: res => {
+        this.currentUser = res
+      },
       error: () => this.currentUser = this.errorUser
     })
 
@@ -61,11 +71,13 @@ export class ClientProfileComponent implements OnInit {
 
   }
 
-  checkOwner():void {
-    this.paramsId == this.loggedUser.id ? this.owner = true : this.owner = false
+  checkOwner(): void {
+    if (this.loggedUser.id) {
+      this.paramsId == this.loggedUser.id ? this.owner = true : this.owner = false
+    }
   }
 
-  editUser():void {
+  editUser(): void {
     this.form = new FormGroup({
       name: new FormControl(this.currentUser.name, Validators.required),
       email: new FormControl(this.currentUser.email, Validators.required),
@@ -80,7 +92,7 @@ export class ClientProfileComponent implements OnInit {
     this.isVisible = false;
   }
 
-  saveProfileData():void {
+  saveProfileData(): void {
     if (this.currentUser.id)
       this.userSrv.editUser(this.form.value, this.currentUser.id).subscribe({
         next: (user) => {
@@ -113,7 +125,7 @@ export class ClientProfileComponent implements OnInit {
       });
   }
 
-  deleteUser():void {
+  deleteUser(): void {
     Swal.fire({
       title: 'warning!',
       text: "You won't be able to revert this!",
@@ -176,7 +188,7 @@ export class ClientProfileComponent implements OnInit {
     })
   }
 
-  editPost(post: Post):void {
+  editPost(post: Post): void {
     console.log(post);
     this.postSvc.editPost(post).subscribe(res => {
       let index = this.posts.findIndex((todo: Post) => todo.id == res.id)
@@ -197,7 +209,7 @@ export class ClientProfileComponent implements OnInit {
     this.formAction = 'edit'
   }
 
-  addLike(post: Post):void {
+  addLike(post: Post): void {
     if (post.id && this.currentUser?.id) {
       let heart: number = this.currentUser.id
       if (post.likes.includes(heart)) {
@@ -220,67 +232,129 @@ export class ClientProfileComponent implements OnInit {
   }
 
 
-openedCom:Post[]=[]
+  openedCom: Post[] = []
 
-openContent(post:Post){
-  this.commentSvc.getCommentOfPost(post).subscribe(comments => this.allComments = comments)
-  this.openedCom.push(post)
-  console.log(this.openedCom);
-
-  /* LOGICA COMMENTI APERTI */
-  if( this.openedCom.length > 1 && this.openedCom[0]!==this.openedCom[1]){
-    this.openedCom[0].commentCollapsed = false
-    this.openedCom.shift()
+  openContent(post: Post) {
+    this.commentSvc.getCommentOfPost(post).subscribe(comments => this.allComments = comments)
+    this.openedCom.push(post)
     console.log(this.openedCom);
+
+    /* LOGICA COMMENTI APERTI */
+    if (this.openedCom.length > 1 && this.openedCom[0] !== this.openedCom[1]) {
+      this.openedCom[0].commentCollapsed = false
+      this.openedCom.shift()
+      console.log(this.openedCom);
+    }
+    if (this.openedCom[0] == this.openedCom[1]) {
+      this.openedCom = []
+    }
+    post.commentCollapsed = !post.commentCollapsed
+
   }
-  if(this.openedCom[0]==this.openedCom[1]){
-    this.openedCom=[]
+
+  findAuthor(id: number | undefined): string {
+
+    let author = this.allUsers.find((user: User) => user.id == id)
+    if (author)
+      return author.name
+    else return 'unknown author'
   }
-  post.commentCollapsed= !post.commentCollapsed
 
-}
-
-findAuthor(id: number | undefined): string {
-
-  let author = this.allUsers.find((user: User) => user.id == id)
-  if (author)
-  return author.name
-  else return 'unknown author'
-}
-
-createComment( commentContent:string, post:Post){
-  if(this.currentUser && this.currentUser.id && post.id){
-   let comment = new Comment(commentContent,this.currentUser.id,post.id)
-    this.commentSvc.addComment(comment).subscribe(comment => this.allComments.push(comment))
-    this.commentContent=''
+  createComment(commentContent: string, post: Post) {
+    if (this.currentUser && this.currentUser.id && post.id) {
+      let comment = new Comment(commentContent, this.currentUser.id, post.id)
+      this.commentSvc.addComment(comment).subscribe(comment => this.allComments.push(comment))
+      this.commentContent = ''
+    }
   }
-}
 
-timeElapsed(past: Date):string{
-  let today:string = String(new Date())
-  console.log(past);
-  let pastTimeNum= Date.parse(String(past))
-  let todayTimeNum= Date.parse(today)
-  console.log(past);
+  deleteComment(comment: Comment): void {
+    this.commentSvc.deleteComment(comment).subscribe(() => {
+      this.allComments = this.allComments.filter(n => n.id != comment.id)
+    })
+  }
 
-  let elapsed:any = (todayTimeNum - pastTimeNum)/(1000*60*60*24)
-  console.log(elapsed);
+  editComment(comment: Comment): void {
+    comment.content = this.commentContent
+    this.commentSvc.editComment(comment).subscribe(comment => {
+      let index = this.allComments.findIndex((c: Comment) => c.id == comment.id)
+      this.allComments.splice(index, 1, comment)
+    })
+    this.commentAction = 'create'
+  }
 
-  /* CALOCO TEMPO PASSATO DALLA DATA DI PUBLICAZIONE */
-  if(elapsed < 1/(60*24))
-  return 'just right now'
-  if(elapsed < 1/24)
-  return `${(elapsed*(60*24)).toFixed(0)} minutes ago`
-  if(elapsed < 1)
-  return `${(elapsed*24).toFixed(0)} hours ago`
-  if(elapsed < 31)
-  return `${(elapsed).toFixed(0)} days ago`
-  if(elapsed > 365)
-  return `${(elapsed/365).toFixed(0)} years ago`
-  if(elapsed > 62)
-  return `${(elapsed/30).toFixed(0)} months ago`
-  else return 'popi popi'
-}
+  addCommentToEdit(comment: Comment): void {
+    comment = Object.assign({}, comment)
+    console.log(this.currentComment)
+    this.commentContent = comment.content
+    this.currentComment.id = comment.id
+    this.currentComment.postId = comment.postId
+    this.currentComment.userId = comment.userId
+    this.currentComment.dateOfPublish = comment.dateOfPublish
+    this.commentAction = 'edit'
+  }
+
+  timeElapsed(past: Date): string {
+    let today: string = String(new Date())
+    console.log(past);
+    let pastTimeNum = Date.parse(String(past))
+    let todayTimeNum = Date.parse(today)
+    console.log(past);
+
+    let elapsed: any = (todayTimeNum - pastTimeNum) / (1000 * 60 * 60 * 24)
+    console.log(elapsed);
+
+    /* CALOCO TEMPO PASSATO DALLA DATA DI PUBLICAZIONE */
+    if (elapsed < 1 / (60 * 24))
+      return 'just right now'
+    if (elapsed < 1 / 24)
+      return `${(elapsed * (60 * 24)).toFixed(0)} minutes ago`
+    if (elapsed < 1)
+      return `${(elapsed * 24).toFixed(0)} hours ago`
+    if (elapsed < 31)
+      return `${(elapsed).toFixed(0)} days ago`
+    if (elapsed > 365)
+      return `${(elapsed / 365).toFixed(0)} years ago`
+    if (elapsed > 62)
+      return `${(elapsed / 30).toFixed(0)} months ago`
+    else return 'popi popi'
+  }
+
+  // Friend / Notifications
+
+  social: {
+    friend: string;
+    message: string;
+    like: string;
+  } = {
+    friend: 'sent you a friend request',
+    message: 'has commented your post',
+    like: 'has liked your post'
+  }
+
+
+
+
+  sendRequest(user: User, action: string) {
+    console.log(user.notifications)
+    user.notifications.push(this.loggedUser?.name + action)
+    if (user.id) {
+      this.userSrv.editUser(user, user.id).subscribe(() => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'request sent',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      })
+    }
+
+  }
+
+  addToFriends() {
+
+  }
 
 
 }

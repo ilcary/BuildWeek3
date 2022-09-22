@@ -16,6 +16,8 @@
     <h4>{{currentUser.email}}</h4>
   </div>
 
+  <button (click)="sendRequest(currentUser,social.friend)">Send Friend request</button>
+
   <div *ngIf="owner" class="refs">
     <button nz-button (click)="deleteUser()" nzType="dashed">Delete profile</button>
     <button nz-button [nzType]="'primary'" (click)="editUser()"><span>Edit profile</span></button>
@@ -122,13 +124,18 @@
         </div>
 
         <p>{{comment.content}}</p>
+        <div *ngIf="currentUser?.id == comment.userId ">
+        <button (click)="deleteComment(comment)">Delete</button>
+        <button (click)="addCommentToEdit(comment)">Edit</button>
+      </div>
       </div>
 
       <!-- COMMENT FOOTER -->
     <div class="commentFooter">
       <div>
         <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
-        <button (click)="createComment(commentContent,post)" >send</button>
+        <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
+        <button *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
       </div>
     <button>&#8593;</button>
     </div>

@@ -33,11 +33,11 @@ export class CommentService {
     return this.http.get<Comment[]>(this.api_CommentUrl+ '/?postId='+post.id)
   }
 
-/*
+
   editComment(Comment:Comment):Observable<Comment>{
     return this.http.patch<Comment>(this.api_CommentUrl + Comment.id, Comment)
   }
- */
+
 
   deleteComment(Comment:Comment):Observable<Comment>{
     return this.http.delete<Comment>(this.api_CommentUrl + Comment.id)
