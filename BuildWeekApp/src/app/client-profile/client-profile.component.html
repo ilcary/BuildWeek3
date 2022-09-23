@@ -16,9 +16,6 @@
     <h4>{{currentUser.email}}</h4>
   </div>
 
-  <button *ngIf="!owner && findIndexStatus(currentUser)==undefined" (click)="sendRequest(currentUser)">Send friend request</button>
-  <button *ngIf="!owner && findIndexStatus(currentUser)== 2" (click)="deleteRequest(currentUser)">Pending request</button>
-  <button *ngIf="!owner && findIndexStatus(currentUser)== 3" (click)="deleteRequest(currentUser)">Remove friend</button>
 
   <div *ngIf="owner" class="refs">
     <button nz-button (click)="deleteUser()" nzType="dashed">Delete profile</button>
@@ -142,10 +139,9 @@
     <div *ngIf="currentUser" class="commentFooter">
       <div>
         <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
-        <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
-        <button *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
+        <button class="writeComment" *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
+        <button class="writeComment" *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
       </div>
-    <button>&#8593;</button>
     </div>
 
     </nz-collapse-panel>

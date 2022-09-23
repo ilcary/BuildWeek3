@@ -98,10 +98,10 @@
 <div *ngIf="currentUser" class="commentFooter">
   <div>
     <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
-    <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
-    <button *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
+    <button class="writeComment" *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
+    <button class="writeComment" *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
   </div>
-<button>&#8593;</button>
+<a href="#" class="backToTop">&#8593;</a>
 </div>
 
 </nz-collapse-panel>

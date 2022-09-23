@@ -1,5 +1,92 @@
 {
-  "users": [],
-  "posts": [],
-  "comments": []
+  "users": [
+    {
+      "email": "francy@mail.com",
+      "password": "$2a$10$US440AuLn70EfQQbYxenT.qPc0T1pu263w9U9IEywyXjtEalEYxNm",
+      "name": "Francy",
+      "btd": "1992-02-18",
+      "friends": [],
+      "notifications": [],
+      "id": 1
+    },
+    {
+      "email": "fsutu96@gmail.com",
+      "password": "$2a$10$HZjWv7/2vXU2C1LkfR1ZN.RRVoejnp3tG1Tfrv.I2ceFteEeO2q.i",
+      "name": "Florin",
+      "btd": "1996-07-29",
+      "friends": [],
+      "notifications": [],
+      "id": 2
+    },
+    {
+      "email": "carisio01@gmail.com",
+      "password": "$2a$10$h6A19GZjCwUOskI.DbdMGuJrPORVLbAT82bgSRsMX5nu0pIsgycru",
+      "name": "ilCary",
+      "btd": "2001-09-30",
+      "friends": [],
+      "notifications": [],
+      "id": 3
+    }
+  ],
+  "posts": [
+    {
+      "title": "Finalmente Developer",
+      "content": "Ciaoo, ho appena completato il corso front-end developer !! :))",
+      "dateOfPublish": "2022-09-23T13:10:44.544Z",
+      "likes": [
+        1,
+        2,
+        3
+      ],
+      "commentCollapsed": true,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "title": "Pronto per il back-end!",
+      "content": "Da lunedì si inizia un'altra sfida",
+      "dateOfPublish": "2022-09-23T13:13:05.808Z",
+      "likes": [
+        2,
+        3
+      ],
+      "commentCollapsed": true,
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "title": "Ultima Build-Week",
+      "content": "Forza gruppo uno!",
+      "dateOfPublish": "2022-09-23T13:17:21.180Z",
+      "likes": [
+        3
+      ],
+      "commentCollapsed": false,
+      "userId": 3,
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "content": "Complimenti, è stata dura?",
+      "userId": 2,
+      "postId": 1,
+      "dateOfPublish": "2022-09-23T13:11:41.071Z",
+      "id": 1
+    },
+    {
+      "content": "Che bello!",
+      "userId": 3,
+      "postId": 1,
+      "dateOfPublish": "2022-09-23T13:15:08.719Z",
+      "id": 2
+    },
+    {
+      "content": "gasatissimo!",
+      "userId": 3,
+      "postId": 2,
+      "dateOfPublish": "2022-09-23T13:15:23.809Z",
+      "id": 3
+    }
+  ]
 }

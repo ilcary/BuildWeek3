@@ -104,11 +104,10 @@ input{
   background-color: #99999944;
   padding: 0.5rem 1rem ;
 }
-button{
+.writeComment{
   border-radius: 0 5px 5px 0;
   border: none;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding:0.5rem 1rem;
   &:hover{
     cursor: pointer;
     background-color: #d8d8d8;
@@ -253,4 +252,14 @@ padding: 1rem;
 margin: 1rem;
 }
 
+.backToTop{
+  font-size: 1.4rem;
+  color:white;
+  background-color: #6789a8;
+  border-radius: 50%;
+  padding-left:0.8rem;
+  padding-right:0.8rem;
+  border:none
+
+}
 
