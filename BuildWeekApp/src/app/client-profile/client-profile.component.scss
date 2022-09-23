@@ -1,90 +1,85 @@
-
-.d-none{
-  background-color: black;
+section{
+  background-color: #a0a0a013;
 }
 
-nz-header{
-  display: flex;
-  align-items: center;
-}
+.userInfo{
+display: flex;
+align-items: center;
+flex-direction: column;
+text-align: center;
+margin: 1rem;
 
-/* INPUT SEARCH USER */
+padding-bottom: 1rem;
 
-
-.search-bar{
-  display: flex;
-  position: relative;
-  width: 60%;
-  height: 30px;
-  margin: 0 auto;
-  border-radius: 5px;
-}
-.input-search input{
- display: block;
- width:100%;
- height:100%;
- color: #000000;
- background-color: #E4F2FD;
- font-size: 1rem;
- border-radius:8px;
- padding-left: 10px;
- border: none;
- outline: none;
 }
 
 
-
-.search-menu{
-  display: block;
-  width: 100%;
-  color: #999999;
-  background-color: #E4F2FD;
-  border-radius: 4px;
-  font-size: 1rem;
-  box-shadow: 0 0 10px #27262634;
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 10;
-}
-
-.search-related a{
+#bg{
+ background-image: url('https://picsum.photos/300');
+ height: 200px;
+ max-width: 500px;
+ margin: 0 auto;
+ background-repeat: no-repeat;
+ background-size: cover;
  display: flex;
- align-items: center;
- justify-content: flex-start;
- color: #999999;
- font-size: 1rem;
- text-decoration: none;
- line-height: 32px;
- transition: all 0.2s;
+ justify-content: center;
+ align-items: flex-end;
+ box-shadow: 1px 1px 25px 1px #2e2e2e;
+ border-radius:0px 0px 15px 15px ;
 }
 
-.search-related a:hover{
-  color: #ffffff;
-}
 
-/* .input-search input:focus + .search-menu{
-  display: block;
-} */
-
-
-
-.sectionHome{
+#avatar{
+  margin-bottom: -2rem;
+  width: 140px;
+  height: 100px;
+  background: linear-gradient(to right, #3c6fa3ec, #4ca2afda);
+  border-radius: 50%;
+  border-bottom: 3px solid #0000001c;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 1rem;
-app-form-post{
-margin-top: 1rem;
-margin-bottom: 1rem;
-}
-.singleCard{
-margin-top: 1.2rem;
-}
+  justify-content: center;
+  box-shadow: 1px 1px 25px 1px #2e2e2e96;
+  h1{
+    color: #fff;
+  }
 }
 
-nz-collapse-panel {
-  width: 280px;
+.contenthead{
+  margin-top: 2rem;
+
+}
+
+
+#postTitle{
+  text-align: center;
+  margin: 1rem;
+  font-size: 2rem;
+}
+
+
+.commentHeader{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #99999944;
+  border-radius: 5px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  h4{
+    padding-top:5px ;
+  }
+}
+.cardcontainer{
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+
+
+.noborderplease{
+  background-color: #ffffff;
 }
 
 .commentIcon{
@@ -117,31 +112,49 @@ button{
 
 }
 
-.noborderplease{
-  background-color: #ffffff;
-  width: 100% ;
-}
-
-.commentHeader{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #99999944;
+.refs {
+  margin-top: 0.5rem;
+  background-color: #7db1e09a;
   border-radius: 5px;
+  border-bottom: 1px solid #a0a0a0;
+  button{
+  margin: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  h4{
-    padding-top:5px ;
-  }
+  border-radius: 5px;
 }
 
-
-
-nz-card{
-  width:280px;
 }
 
+.sectionTitle{
+  margin-top: 1rem;
+}
+form{
+  background-color: #4b4b4b41;
+  padding: 0.6rem;
+  border-radius: 5px;
+}
+
+/* CARD POST STYLE */
+
+.formForPost{
+border: none;
+}
+
+.insert{
+  border: none;
+  border-bottom: 2px solid #7a7a7a;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+.btnCool{
+  border: none;
+  border-bottom: 2px solid #7a7a7a;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  width: 33%;
+}
 
 
 $bright-color: #fff;
@@ -252,5 +265,4 @@ border-radius: 25px;
 padding: 1rem;
 margin: 1rem;
 }
-
 

@@ -1,1 +1,111 @@
-<p>home works!</p>
+<nz-header>
+<div class="search-bar">
+  <label class="input-search" for="">
+    <input type="text" (input)="filterOptionUser(searched)" [(ngModel)]="searched" placeholder="Find new friends!">
+    <div class="search-menu">
+      <div class="search-related">
+        <a *ngFor="let option of searchedUsers"  [routerLink]="['profile/'+option.id]">
+          <span>{{option.name}}</span>
+        </a>
+      </div>
+    </div>
+  </label>
+</div>
+</nz-header>
+
+<!-- option.name -->
+<!-- *ngFor="let option of userList" -->
+
+<!-- post -->
+<!-- post -->
+<div class="sectionHome">
+
+  <app-form-post *ngIf="currentUser" (onNewPostCreated)="addPost($event)" (onEditPost)="editPost($event)"
+  [currentPost]="currentPost" [formAction]="formAction">
+</app-form-post>
+
+<!-- CARD POST -->
+<div class="singleCard" *ngFor="let post of posts">
+
+<div class="container">
+  <p class="postContent" >{{post.content}}</p>
+   <div class="container__info">
+
+    <span><fa-icon class="heart" [icon]="faHeart" (click)="addLike(post)" nzType="heart" ></fa-icon> {{allLikes(post)}}</span>
+    <span><fa-icon (click)="openContent(post)" [icon]="faComment"></fa-icon></span>
+    <span><fa-icon (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " [icon]="faTrash"></fa-icon></span>
+    <a href="#"><fa-icon (click)="addToEdit(post)"  *ngIf="currentUser?.id == post.userId " [icon]="faPenAlt"></fa-icon></a>
+   </div>
+   <div class="container__profile">
+    <img
+     src="https://picsum.photos/200"
+     alt="people"
+    />
+    <div class="container__profile__text">
+     <h2>{{post.title}}</h2>
+     <p>by <b>{{findAuthor(post.userId).name}}</b></p>
+    </div>
+   </div>
+  </div>
+
+
+<!--   <nz-card
+  [nzActions]="[actionComment, actionDelete, actionEdit, actionLike ]"
+  nzTitle={{findAuthor(post.userId).name}}>
+  <nz-card-meta
+  nzTitle={{post.title}}
+  nzDescription={{post.content}}>
+</nz-card-meta>
+</nz-card> -->
+
+<!-- CARD FOOTER -->
+<!-- <ng-template #actionDelete>
+  <span (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " nz-icon nzType="delete"></span>
+</ng-template>
+<ng-template #actionEdit>
+  <a (click)="addToEdit(post)" href="#" *ngIf="currentUser?.id == post.userId " nz-icon nzType="edit"></a>
+</ng-template>
+<ng-template #actionLike>
+  <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
+</ng-template>
+<ng-template class="noborderplease" #actionComment>
+
+  <span (click)="openContent(post)" class="commentIcon" nz-icon nzType="message"></span>
+</ng-template> -->
+<!-- <span (click)="comment(post)" nz-icon nzType="message"></span> -->
+<!-- COMMENTS -->
+<nz-collapse class="noborderplease" nzGhost>
+  <nz-collapse-panel class="noborderplease"
+    [nzExpandedIcon]=""
+    [nzShowArrow]="false"
+    [nzActive]="post.commentCollapsed"
+  >
+  <!-- COMMENT CONTENT -->
+  <div class="commentWhole" *ngFor="let comment of allComments" >
+    <div class="commentHeader">
+      <h4>{{findAuthor(comment.userId).name}}</h4>
+      <span>{{timeElapsed(comment.dateOfPublish)}}</span>
+    </div>
+
+    <p>{{comment.content}}</p>
+    <div *ngIf="currentUser?.id == comment.userId ">
+    <button class="commentBtn" (click)="deleteComment(comment)">Delete</button>
+    <button class="commentBtn" (click)="addCommentToEdit(comment)">Edit</button>
+  </div>
+  </div>
+
+  <!-- COMMENT FOOTER -->
+<div *ngIf="currentUser" class="commentFooter">
+  <div>
+    <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
+    <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
+    <button *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
+  </div>
+<button>&#8593;</button>
+</div>
+
+</nz-collapse-panel>
+</nz-collapse>
+
+</div>
+</div>

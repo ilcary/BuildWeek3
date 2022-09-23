@@ -1,0 +1,157 @@
+<div *ngIf="currentUser == errorUser">404</div>
+
+<section *ngIf="currentUser != errorUser">
+
+
+
+  <div id="bg">
+    <div id="avatar">
+      <h1>{{currentUser.name}}</h1>
+    </div>
+  </div>
+
+<div class="userInfo">
+
+  <div class="contenthead">
+    <h4>{{currentUser.email}}</h4>
+  </div>
+
+  <button *ngIf="!owner && findIndexStatus(currentUser)==undefined" (click)="sendRequest(currentUser)">Send friend request</button>
+  <button *ngIf="!owner && findIndexStatus(currentUser)== 2" (click)="deleteRequest(currentUser)">Pending request</button>
+  <button *ngIf="!owner && findIndexStatus(currentUser)== 3" (click)="deleteRequest(currentUser)">Remove friend</button>
+
+  <div *ngIf="owner" class="refs">
+    <button nz-button (click)="deleteUser()" nzType="dashed">Delete profile</button>
+    <button nz-button [nzType]="'primary'" (click)="editUser()"><span>Edit profile</span></button>
+  </div>
+
+  <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+    (nzOnCancel)="handleCancel()">
+    <ng-template #modalTitle>Edit personal info</ng-template>
+
+    <ng-template #modalContent>
+      <form nz-form [formGroup]="form" class="login-form" (submit)="saveProfileData()">
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your username!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="name" required placeholder="Username" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your date of birth!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="date" nz-input formControlName="btd" required placeholder="Date of birth" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your email!">
+            <nz-input-group nzPrefixIcon="mail">
+              <input type="text" nz-input formControlName="email" required placeholder="Mail" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Please input your Password!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" required placeholder="Password" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [disabled]="!form.valid">Save!</button>
+      </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+      <button nz-button nzType="default" (click)="handleCancel()">back</button>
+    </ng-template>
+  </nz-modal>
+
+  <div class="wholeForm" *ngIf="owner" class="formForPost">
+
+    <h2 class="sectionTitle" >Create a new post!</h2>
+
+    <form>
+      <input class="insert" nz-input placeholder="Titile" name="title" [(ngModel)]="currentPost.title" />
+      <textarea class="insert" nz-input placeholder="What'is going on?" name="content" [(ngModel)]="currentPost.content"
+        [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+      <button class="btnCool" nz-button nzType="primary" *ngIf=" formAction == 'create'" (click)="addPost(currentPost)">Share
+        it!</button>
+      <button class="btnCool" nz-button nzType="primary" *ngIf=" formAction == 'edit'" (click)="editPost(currentPost)">Edit!</button>
+    </form>
+
+  </div>
+
+</div>
+
+  <h2 id="postTitle" [textContent]="owner? 'My Post:': 'Post:' "></h2>
+
+
+
+<div class="cardcontainer">
+  <div class="singleCard" *ngFor="let post of posts">
+
+    <div class="container">
+      <p class="postContent" >{{post.content}}</p>
+       <div class="container__info">
+
+        <span><fa-icon class="heart" [icon]="faHeart" (click)="addLike(post)" nzType="heart" ></fa-icon> {{allLikes(post)}}</span>
+        <span><fa-icon (click)="openContent(post)" [icon]="faComment"></fa-icon></span>
+        <span><fa-icon (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " [icon]="faTrash"></fa-icon></span>
+        <a href="#"><fa-icon (click)="addToEdit(post)"  *ngIf="currentUser?.id == post.userId " [icon]="faPenAlt"></fa-icon></a>
+       </div>
+       <div class="container__profile">
+        <img
+         src="https://picsum.photos/200"
+         alt="people"
+        />
+        <div class="container__profile__text">
+         <h2>{{post.title}}</h2>
+         <p>by <b>{{findAuthor(post.userId).name}}</b></p>
+        </div>
+       </div>
+      </div>
+
+    <!-- COMMENTS -->
+    <nz-collapse class="noborderplease" nzGhost>
+      <nz-collapse-panel class="noborderplease"
+        [nzExpandedIcon]=""
+        [nzShowArrow]="false"
+        [nzActive]="post.commentCollapsed"
+      >
+      <!-- COMMENT CONTENT -->
+      <div class="commentWhole" *ngFor="let comment of allComments" >
+        <div class="commentHeader">
+          <h4>{{findAuthor(comment.userId).name}}</h4>
+          <span>{{timeElapsed(comment.dateOfPublish)}}</span>
+        </div>
+
+        <p>{{comment.content}}</p>
+        <div *ngIf="currentUser?.id == comment.userId ">
+        <button class="commentBtn" (click)="deleteComment(comment)">Delete</button>
+        <button class="commentBtn" (click)="addCommentToEdit(comment)">Edit</button>
+      </div>
+      </div>
+
+      <!-- COMMENT FOOTER -->
+    <div *ngIf="currentUser" class="commentFooter">
+      <div>
+        <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
+        <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>
+        <button *ngIf="commentAction == 'edit'" (click)="editComment(currentComment)">edit</button>
+      </div>
+    <button>&#8593;</button>
+    </div>
+
+    </nz-collapse-panel>
+    </nz-collapse>
+
+    </div>
+  </div>
+
+</section>
