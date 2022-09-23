@@ -11,11 +11,22 @@
     },
     {
       "email": "francy@gmail.com",
-      "password": "$2a$10$gaf5fyRVO94zBuMUOrtlmOhh7jOLgfweS9Q.FJwBJcKSE2LcIw.fC",
+      "password": "$2a$10$tVvzWPs2WJ6sMDmRXKctMeymBZo6bBcW5PjcQpVK9RRAnw1EKG6D.",
       "name": "FrancyFrancy",
       "btd": "1689-09-30",
       "friends": [],
-      "notifications": [],
+      "notifications": [
+        {
+          "fromUserId": 2,
+          "toUserId": 2,
+          "status": 2
+        },
+        {
+          "fromUserId": 2,
+          "toUserId": 2,
+          "status": 2
+        }
+      ],
       "id": 2
     }
   ],

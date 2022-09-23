@@ -1,3 +1,4 @@
+import { Ifriendrequest } from "./ifriendrequest";
 import { ilogin } from "./ilogin";
 
 export class User implements ilogin {
@@ -7,7 +8,7 @@ export class User implements ilogin {
   btd: Date
   password: string;
   friends: number[]
-  notifications: any[]
+  notifications: Ifriendrequest[]
 
   constructor(name:string, email:string, btd:Date, password:string,notifications: any[] = [] ,friends:number[] = []){
     this.name = name
