@@ -21,7 +21,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse'
     NgZModule,
     NzDropDownModule,
     FontAwesomeModule,
-    NzCollapseModule
+    NzCollapseModule,
   ]
 })
 export class HomeModule { }

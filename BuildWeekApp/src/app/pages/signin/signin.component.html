@@ -1,9 +1,11 @@
+<h2 class="title" >Register now!</h2>
+
 <form nz-form [formGroup]="form" class="login-form" (submit)="submit()">
 
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your username!">
       <nz-input-group nzPrefixIcon="user">
-        <input type="text" nz-input formControlName="name" placeholder="Username" />
+        <input type="text" required nz-input formControlName="name" placeholder="Username" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -11,7 +13,7 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your date of birth!">
       <nz-input-group nzPrefixIcon="user">
-        <input type="date" nz-input formControlName="btd" placeholder="Date of birth" />
+        <input type="date" nz-input required formControlName="btd" placeholder="Date of birth" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -19,7 +21,7 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your email!">
       <nz-input-group nzPrefixIcon="mail">
-        <input type="email" nz-input formControlName="email" placeholder="Mail" />
+        <input type="email" nz-input required formControlName="email" placeholder="Mail" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -27,11 +29,13 @@
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Password!">
       <nz-input-group nzPrefixIcon="lock">
-        <input type="password" nz-input formControlName="password" placeholder="Password" />
+        <input type="password" nz-input required formControlName="password" placeholder="Password" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
 
-  <button nz-button class="login-form-button login-form-margin" >Sign up!</button>
+  <button nz-button class="login-form-button login-form-margin" [disabled]="!form.valid" required >Sign up!</button>
 </form>
+
+
 

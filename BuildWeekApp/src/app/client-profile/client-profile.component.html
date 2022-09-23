@@ -72,17 +72,17 @@
     </ng-template>
   </nz-modal>
 
-  <div *ngIf="owner" class="formForPost">
+  <div class="wholeForm" *ngIf="owner" class="formForPost">
 
-    <h2>Create a new post!</h2>
+    <h2 class="sectionTitle" >Create a new post!</h2>
 
     <form>
-      <input nz-input placeholder="Titile" name="title" [(ngModel)]="currentPost.title" />
-      <textarea nz-input placeholder="What'is going on?" name="content" [(ngModel)]="currentPost.content"
+      <input class="insert" nz-input placeholder="Titile" name="title" [(ngModel)]="currentPost.title" />
+      <textarea class="insert" nz-input placeholder="What'is going on?" name="content" [(ngModel)]="currentPost.content"
         [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-      <button nz-button nzType="primary" *ngIf=" formAction == 'create'" (click)="addPost(currentPost)">Share
+      <button class="btnCool" nz-button nzType="primary" *ngIf=" formAction == 'create'" (click)="addPost(currentPost)">Share
         it!</button>
-      <button nz-button nzType="primary" *ngIf=" formAction == 'edit'" (click)="editPost(currentPost)">Edit!</button>
+      <button class="btnCool" nz-button nzType="primary" *ngIf=" formAction == 'edit'" (click)="editPost(currentPost)">Edit!</button>
     </form>
 
   </div>
@@ -91,25 +91,31 @@
 
   <h2 id="postTitle" [textContent]="owner? 'My Post:': 'Post:' "></h2>
 
-<div class="cardcontainer">
 
-  <div *ngFor="let post of posts">
-    <nz-card [nzActions]="[actionComment, actionEdit,actionDelete, actionLike ]">
-      <nz-card-meta nzTitle={{post.title}} nzDescription={{post.content}}></nz-card-meta>
-    </nz-card>
-    <ng-template #actionDelete>
-      <span (click)="deletePost(post)" *ngIf="owner" nz-icon nzType="delete"></span>
-    </ng-template>
-    <ng-template #actionEdit>
-      <span (click)="addToEdit(post)" *ngIf="owner " nz-icon nzType="edit"></span>
-    </ng-template>
-    <ng-template #actionLike>
-      <span (click)="addLike(post)" nz-icon nzType="heart">{{allLikes(post)}}</span>
-    </ng-template>
-    <ng-template class="noborderplease" #actionComment>
-      <!-- <span (click)="comment(post)" nz-icon nzType="message"></span> -->
-      <span (click)="openContent(post)" class="commentIcon" nz-icon nzType="message"></span>
-    </ng-template>
+
+<div class="cardcontainer">
+  <div class="singleCard" *ngFor="let post of posts">
+
+    <div class="container">
+      <p class="postContent" >{{post.content}}</p>
+       <div class="container__info">
+
+        <span><fa-icon class="heart" [icon]="faHeart" (click)="addLike(post)" nzType="heart" ></fa-icon> {{allLikes(post)}}</span>
+        <span><fa-icon (click)="openContent(post)" [icon]="faComment"></fa-icon></span>
+        <span><fa-icon (click)="deletePost(post)" *ngIf="currentUser?.id == post.userId " [icon]="faTrash"></fa-icon></span>
+        <a href="#"><fa-icon (click)="addToEdit(post)"  *ngIf="currentUser?.id == post.userId " [icon]="faPenAlt"></fa-icon></a>
+       </div>
+       <div class="container__profile">
+        <img
+         src="https://picsum.photos/200"
+         alt="people"
+        />
+        <div class="container__profile__text">
+         <h2>{{post.title}}</h2>
+         <p>by <b>{{findAuthor(post.userId).name}}</b></p>
+        </div>
+       </div>
+      </div>
 
     <!-- COMMENTS -->
     <nz-collapse class="noborderplease" nzGhost>
@@ -119,21 +125,21 @@
         [nzActive]="post.commentCollapsed"
       >
       <!-- COMMENT CONTENT -->
-      <div *ngFor="let comment of allComments" >
+      <div class="commentWhole" *ngFor="let comment of allComments" >
         <div class="commentHeader">
-          <h4>{{findAuthor(comment.userId)}}</h4>
+          <h4>{{findAuthor(comment.userId).name}}</h4>
           <span>{{timeElapsed(comment.dateOfPublish)}}</span>
         </div>
 
         <p>{{comment.content}}</p>
         <div *ngIf="currentUser?.id == comment.userId ">
-        <button (click)="deleteComment(comment)">Delete</button>
-        <button (click)="addCommentToEdit(comment)">Edit</button>
+        <button class="commentBtn" (click)="deleteComment(comment)">Delete</button>
+        <button class="commentBtn" (click)="addCommentToEdit(comment)">Edit</button>
       </div>
       </div>
 
       <!-- COMMENT FOOTER -->
-    <div class="commentFooter">
+    <div *ngIf="currentUser" class="commentFooter">
       <div>
         <input id="comment" [(ngModel)]="commentContent" placeholder="Write a comment here" type="text">
         <button *ngIf="commentAction == 'create'" (click)="createComment(commentContent,post)" >send</button>

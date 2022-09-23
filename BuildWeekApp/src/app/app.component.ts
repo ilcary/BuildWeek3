@@ -41,7 +41,7 @@ export class AppComponent implements OnInit{
   logOut(){
     this.auth.logOut()
     this.checkForActualUser()
-    this.router.navigate(['/']);
+    this.router.navigate(['/signin']);
   }
 
 

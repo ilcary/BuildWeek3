@@ -7,7 +7,7 @@ import { PostService } from 'src/app/services/post.service';
 import { UserAuthService } from 'src/app/services/user-auth.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
-import { faMagnifyingGlass, faComment } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass, faComment, faTrash, faPenAlt, faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons'
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from '../../models/comment';
 
@@ -34,6 +34,10 @@ export class HomeComponent implements OnInit {
 
   faMagnifyingGlass=faMagnifyingGlass
   faComment = faComment
+  faTrash=faTrash
+  faPenAlt = faPenAlt
+  faCommentAlt = faCommentAlt
+  faHeart = faHeart
 
   apiUrl: string = 'http://localhost:3000/posts'
 

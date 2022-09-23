@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
     .subscribe(res => {
       this.auth.saveAccessData(res)
       console.log(`sei dentro boyyy ${res.user.email}`);
-
       this.router.navigate(['/'])
     })
   }

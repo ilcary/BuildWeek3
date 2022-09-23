@@ -11,6 +11,7 @@ import { UserAuthService } from '../services/user-auth.service';
 import { UserService } from '../services/user.service';
 import { Comment } from '../models/comment';
 import { Ifriendrequest } from '../models/ifriendrequest';
+import { faComment, faTrash, faPenAlt, faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-client-profile',
@@ -33,6 +34,12 @@ export class ClientProfileComponent implements OnInit {
   commentContent!: string;
   commentAction: string = 'create';
   currentComment: Comment = new Comment('', 0, 0, new Date());
+
+  faComment = faComment
+  faTrash=faTrash
+  faPenAlt = faPenAlt
+  faCommentAlt = faCommentAlt
+  faHeart = faHeart
 
   constructor(
     private userSrv: UserService,
@@ -250,10 +257,12 @@ export class ClientProfileComponent implements OnInit {
     post.commentCollapsed = !post.commentCollapsed;
   }
 
-  findAuthor(id: number | undefined): string {
-    let author = this.allUsers.find((user: User) => user.id == id);
-    if (author) return author.name;
-    else return 'unknown author';
+  findAuthor(id: number | undefined): User {
+
+    let author = this.allUsers.find((user: User) => user.id == id)
+    if (author)
+    return author
+    else return this.errorUser
   }
 
   createComment(commentContent: string, post: Post) {

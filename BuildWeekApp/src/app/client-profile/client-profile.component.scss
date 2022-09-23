@@ -1,47 +1,60 @@
+section{
+  background-color: #a0a0a013;
+}
+
 .userInfo{
 display: flex;
 align-items: center;
 flex-direction: column;
 text-align: center;
 margin: 1rem;
-border-bottom: 1px solid #a0a0a0;
+
 padding-bottom: 1rem;
 
 }
 
 
 #bg{
- background-image: url('https://picsum.photos/200');
+ background-image: url('https://picsum.photos/300');
  height: 200px;
- width: 100%;
+ max-width: 500px;
+ margin: 0 auto;
  background-repeat: no-repeat;
  background-size: cover;
  display: flex;
  justify-content: center;
  align-items: flex-end;
  box-shadow: 1px 1px 25px 1px #2e2e2e;
+ border-radius:0px 0px 15px 15px ;
 }
 
 
 #avatar{
   margin-bottom: -2rem;
-  width: 100px;
+  width: 140px;
   height: 100px;
-  background-color: #F0F2F5;
+  background: linear-gradient(to right, #3c6fa3ec, #4ca2afda);
   border-radius: 50%;
+  border-bottom: 3px solid #0000001c;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 1px 1px 25px 1px #2e2e2e96;
+  h1{
+    color: #fff;
+  }
 }
 
 .contenthead{
   margin-top: 2rem;
+
 }
 
 
 #postTitle{
   text-align: center;
+  margin: 1rem;
+  font-size: 2rem;
 }
 
 
@@ -59,8 +72,11 @@ padding-bottom: 1rem;
   }
 }
 .cardcontainer{
-  margin: 1rem;
+  max-width: 350px;
+  margin: 0 auto;
 }
+
+
 
 .noborderplease{
   background-color: #ffffff;
@@ -94,5 +110,159 @@ button{
   }
 }
 
+}
+
+.refs {
+  margin-top: 0.5rem;
+  background-color: #7db1e09a;
+  border-radius: 5px;
+  border-bottom: 1px solid #a0a0a0;
+  button{
+  margin: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 5px;
+}
+
+}
+
+.sectionTitle{
+  margin-top: 1rem;
+}
+form{
+  background-color: #4b4b4b41;
+  padding: 0.6rem;
+  border-radius: 5px;
+}
+
+/* CARD POST STYLE */
+
+.formForPost{
+border: none;
+}
+
+.insert{
+  border: none;
+  border-bottom: 2px solid #7a7a7a;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+.btnCool{
+  border: none;
+  border-bottom: 2px solid #7a7a7a;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  width: 33%;
+}
+
+
+$bright-color: #fff;
+@mixin bottom {
+ position: absolute;
+ right: 0;
+ left: 0;
+}
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+
+body {
+ background-color: #80afcd;
+ font-family: Arial, Helvetica, sans-serif;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ min-height: 100vh;
+ line-height: 1.4;
+}
+
+.container {
+ background: url("https://picsum.photos/800");
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: cover;
+ width: 350px;
+ height: 500px;
+ position: relative;
+ box-shadow: 0 0 50px rgba(0, 0, 0, 0.315);
+ .container__info {
+  @include bottom;
+  bottom: 20%;
+  display: flex;
+  align-items: flex-end;
+  padding: 15px 30px;
+  color: $bright-color;
+  span {
+   margin-right: 20px;
+  }
+  i {
+   margin-right: 10px;
+  }
+ }
+ .container__profile {
+  background-color: #e4f2fd;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  @include bottom();
+  bottom: 0;
+  img {
+   width: 60px;
+   height: 60px;
+   border-radius: 50%;
+   object-position: center;
+   object-fit: cover;
+   margin-right: 10px;
+  }
+  h2 {
+   color: #334454;
+   font-size: 1.2rem;
+  }
+  p {
+   color: #6e8796;
+   font-size: 0.8rem;
+  }
+  p b {
+   font-style: italic;
+  }
+ }
+}
+
+.postContent{
+  background-color: #fff;
+  padding: 1rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.container__info{
+  font-size: 1.2rem;
+  fa-icon:hover{
+  cursor: pointer;
+  color: #6e8796;
+}
+.heart{
+  color: rgb(255, 0, 0);
+}
+}
+.commentBtn{
+  border: none;
+  margin: 5px;
+  color: #fff;
+  background-color: #6789a8;
+  border-radius: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom: solid rgb(170, 170, 170) 2px;
+}
+.commentWhole{
+background-color: #E4F2FD;
+border-radius: 25px;
+padding: 1rem;
+margin: 1rem;
 }
 
